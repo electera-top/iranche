@@ -1,0 +1,223 @@
+services:
+  # WordPress Installer Service
+  wordpress-installer:
+    build:
+      context: ./wordpress-core
+      dockerfile: Dockerfile
+    container_name: shop_wordpress_installer
+    restart: "no"
+    environment:
+      - WORDPRESS_DB_HOST=main-db
+      - WORDPRESS_DB_USER=shop_user
+      - WORDPRESS_DB_PASSWORD=shop_password_123
+      - MAIN_DOMAIN=localhost
+      - TENANT_SUBDOMAIN=${TENANT_SUBDOMAIN:-testshop3}
+      - TENANT_DB_NAME=${TENANT_DB_NAME:-shop_testshop3_1756754342655}
+      - TENANT_DB_USER=${TENANT_DB_USER:-user_testshop3_7ccb34d3}
+      - TENANT_DB_PASSWORD=${TENANT_DB_PASSWORD:-49ac2f39dc334979}
+      - TENANT_ADMIN_USER=admin
+      - TENANT_ADMIN_PASSWORD=${TENANT_ADMIN_PASSWORD:-admin123}
+      - TENANT_ADMIN_EMAIL=${TENANT_ADMIN_EMAIL:-test3@example.com}
+      - TENANT_SHOP_NAME=${TENANT_SHOP_NAME:-فروشگاه نمونه 3}
+    volumes:
+      - wordpress_tenant_data:/var/www/tenants
+    networks:
+      - shop_network
+    depends_on:
+      - main-db
+    command: ["/bin/bash", "/install-tenant.sh"]
+
+  # phpMyAdmin for database management
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: shop_phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: main-db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "9090:80"
+    networks:
+      - shop_network
+    depends_on:
+      - main-db
+
+  # Main Database for tenant management
+  main-db:
+    image: mysql:8.0
+    container_name: shop_main_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: shop_management
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - main_db_data:/var/lib/mysql
+      - ./shared-database/init:/docker-entrypoint-initdb.d
+    networks:
+      - shop_network
+    ports:
+      - "3306:3306"
+
+  # Redis for caching and sessions
+  redis:
+    image: redis:7-alpine
+    container_name: shop_redis
+    restart: unless-stopped
+    networks:
+      - shop_network
+    ports:
+      - "6379:6379"
+
+  # Tenant Manager Service
+  tenant-manager:
+    build:
+      context: ./tenant-manager
+      dockerfile: Dockerfile
+    container_name: shop_tenant_manager
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=main-db
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_NAME=shop_management
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=${JWT_SECRET}
+      - DOMAIN=${MAIN_DOMAIN}
+    volumes:
+      - ./tenants:/app/tenants
+      - ./shared-services:/app/shared-services
+    depends_on:
+      - main-db
+      - redis
+    networks:
+      - shop_network
+    ports:
+      - "3000:3000"
+
+  # WordPress Core for tenants
+  wordpress-core:
+    build:
+      context: ./wordpress-core
+      dockerfile: Dockerfile
+    container_name: shop_wordpress_core
+    restart: unless-stopped
+    environment:
+      - WORDPRESS_DB_HOST=main-db
+      - WORDPRESS_DB_USER=${MYSQL_USER}
+      - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ./wordpress-core:/var/www/html
+      - ./tenants:/var/www/tenants
+    networks:
+      - shop_network
+
+  # Shared Services - Product Aggregator
+  product-aggregator:
+    build:
+      context: ./shared-services/product-aggregator
+      dockerfile: Dockerfile
+    container_name: shop_product_aggregator
+    restart: unless-stopped
+    environment:
+      - DB_HOST=main-db
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - main-db
+      - redis
+    networks:
+      - shop_network
+    ports:
+      - "3001:3001"
+
+  # Shared Services - Content Sync
+  content-sync:
+    build:
+      context: ./shared-services/content-sync
+      dockerfile: Dockerfile
+    container_name: shop_content_sync
+    restart: unless-stopped
+    environment:
+      - DB_HOST=main-db
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - main-db
+      - redis
+    networks:
+      - shop_network
+    ports:
+      - "3002:3002"
+
+  # Frontend Application (Next.js) - Development Mode
+  frontend:
+    build:
+      context: ./public-frontend
+      dockerfile: Dockerfile.dev
+    container_name: shop_frontend
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:3000/api
+      - NEXT_PUBLIC_PRODUCT_API_URL=http://localhost:3001/api
+      - NEXT_PUBLIC_CONTENT_API_URL=http://localhost:3002/api
+    volumes:
+      - ./public-frontend/src:/app/src
+      - ./public-frontend/public:/app/public
+      - ./public-frontend/next.config.mjs:/app/next.config.mjs
+      - ./public-frontend/tailwind.config.ts:/app/tailwind.config.ts
+      - ./public-frontend/tsconfig.json:/app/tsconfig.json
+      - ./public-frontend/postcss.config.js:/app/postcss.config.js
+      - ./public-frontend/eslint.config.mjs:/app/eslint.config.mjs
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - tenant-manager
+      - product-aggregator
+      - content-sync
+    networks:
+      - shop_network
+    ports:
+      - "3003:3000"
+    stdin_open: true
+    tty: true
+
+  # Nginx Reverse Proxy
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: shop_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/sites-available:/etc/nginx/sites-available
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./tenants:/var/www/tenants
+      - ./admin-panel:/var/www/admin-panel
+    depends_on:
+      - tenant-manager
+      - wordpress-core
+      - frontend
+    networks:
+      - shop_network
+
+
+
+volumes:
+  main_db_data:
+  wordpress_tenant_data:
+
+networks:
+  shop_network:
+    driver: bridge

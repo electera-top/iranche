@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت ایرانچه</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-store"></i>
+                    <span>ایرانچه</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item active">
+                        <a href="#dashboard" class="nav-link" data-section="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>داشبورد</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tenants" class="nav-link" data-section="tenants">
+                            <i class="fas fa-building"></i>
+                            <span>مدیریت مستاجرین</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#floors" class="nav-link" data-section="floors">
+                            <i class="fas fa-layer-group"></i>
+                            <span>مدیریت طبقات</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#stores" class="nav-link" data-section="stores">
+                            <i class="fas fa-store"></i>
+                            <span>مدیریت فروشگاه‌ها</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#products" class="nav-link" data-section="products">
+                            <i class="fas fa-box"></i>
+                            <span>مدیریت محصولات</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#users" class="nav-link" data-section="users">
+                            <i class="fas fa-users"></i>
+                            <span>مدیریت کاربران</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#orders" class="nav-link" data-section="orders">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>مدیریت سفارشات</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#analytics" class="nav-link" data-section="analytics">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>آمار و گزارشات</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#content" class="nav-link" data-section="content">
+                            <i class="fas fa-edit"></i>
+                            <span>مدیریت محتوا</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings" class="nav-link" data-section="settings">
+                            <i class="fas fa-cog"></i>
+                            <span>تنظیمات</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title" id="pageTitle">داشبورد</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="جستجو..." id="globalSearch">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="notifications">
+                        <button class="notification-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                    </div>
+                    <div class="user-menu">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/40" alt="Admin">
+                        </div>
+                        <span class="user-name">مدیر سیستم</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="content-section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>تعداد مستاجرین</h3>
+                                <p class="stat-number" id="totalTenants">0</p>
+                                <span class="stat-change positive">+12%</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>فروشگاه‌های فعال</h3>
+                                <p class="stat-number" id="activeStores">0</p>
+                                <span class="stat-change positive">+8%</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>محصولات</h3>
+                                <p class="stat-number" id="totalProducts">0</p>
+                                <span class="stat-change positive">+15%</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>کاربران فعال</h3>
+                                <p class="stat-number" id="activeUsers">0</p>
+                                <span class="stat-change positive">+22%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="chart-container">
+                            <h3>آمار فروش ماهانه</h3>
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                        <div class="recent-activities">
+                            <h3>فعالیت‌های اخیر</h3>
+                            <div class="activity-list" id="recentActivities">
+                                <!-- Activities will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tenants Section -->
+                <section id="tenants" class="content-section">
+                    <div class="section-header">
+                        <h2>مدیریت مستاجرین</h2>
+                        <button class="btn btn-primary" onclick="showAddTenantModal()">
+                            <i class="fas fa-plus"></i>
+                            افزودن مستاجر جدید
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="tenantsTable">
+                            <thead>
+                                <tr>
+                                    <th>نام مستاجر</th>
+                                    <th>دامنه</th>
+                                    <th>وضعیت</th>
+                                    <th>تاریخ ایجاد</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tenantsTableBody">
+                                <!-- Tenants data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Floors Section -->
+                <section id="floors" class="content-section">
+                    <div class="section-header">
+                        <h2>مدیریت طبقات</h2>
+                        <button class="btn btn-primary" onclick="showAddFloorModal()">
+                            <i class="fas fa-plus"></i>
+                            افزودن طبقه جدید
+                        </button>
+                    </div>
+                    <div class="floors-grid" id="floorsGrid">
+                        <!-- Floors will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Stores Section -->
+                <section id="stores" class="content-section">
+                    <div class="section-header">
+                        <h2>مدیریت فروشگاه‌ها</h2>
+                        <button class="btn btn-primary" onclick="showAddStoreModal()">
+                            <i class="fas fa-plus"></i>
+                            افزودن فروشگاه جدید
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="storesTable">
+                            <thead>
+                                <tr>
+                                    <th>نام فروشگاه</th>
+                                    <th>طبقه</th>
+                                    <th>وضعیت</th>
+                                    <th>امتیاز</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="storesTableBody">
+                                <!-- Stores data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Products Section -->
+                <section id="products" class="content-section">
+                    <div class="section-header">
+                        <h2>مدیریت محصولات</h2>
+                        <button class="btn btn-primary" onclick="showAddProductModal()">
+                            <i class="fas fa-plus"></i>
+                            افزودن محصول جدید
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="productsTable">
+                            <thead>
+                                <tr>
+                                    <th>نام محصول</th>
+                                    <th>فروشگاه</th>
+                                    <th>قیمت</th>
+                                    <th>موجودی</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody">
+                                <!-- Products data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Users Section -->
+                <section id="users" class="content-section">
+                    <div class="section-header">
+                        <h2>مدیریت کاربران</h2>
+                        <button class="btn btn-primary" onclick="showAddUserModal()">
+                            <i class="fas fa-plus"></i>
+                            افزودن کاربر جدید
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="usersTable">
+                            <thead>
+                                <tr>
+                                    <th>نام کاربری</th>
+                                    <th>ایمیل</th>
+                                    <th>نقش</th>
+                                    <th>وضعیت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <!-- Users data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Orders Section -->
+                <section id="orders" class="content-section">
+                    <div class="section-header">
+                        <h2>مدیریت سفارشات</h2>
+                        <div class="filter-buttons">
+                            <button class="btn btn-outline active" data-filter="all">همه</button>
+                            <button class="btn btn-outline" data-filter="pending">در انتظار</button>
+                            <button class="btn btn-outline" data-filter="processing">در حال پردازش</button>
+                            <button class="btn btn-outline" data-filter="completed">تکمیل شده</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="ordersTable">
+                            <thead>
+                                <tr>
+                                    <th>شماره سفارش</th>
+                                    <th>مشتری</th>
+                                    <th>مبلغ</th>
+                                    <th>وضعیت</th>
+                                    <th>تاریخ</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                <!-- Orders data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics" class="content-section">
+                    <div class="section-header">
+                        <h2>آمار و گزارشات</h2>
+                        <div class="date-range">
+                            <input type="date" id="startDate">
+                            <span>تا</span>
+                            <input type="date" id="endDate">
+                            <button class="btn btn-primary">اعمال</button>
+                        </div>
+                    </div>
+                    <div class="analytics-grid">
+                        <div class="chart-container">
+                            <h3>فروش روزانه</h3>
+                            <canvas id="dailySalesChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>محبوب‌ترین محصولات</h3>
+                            <canvas id="popularProductsChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>آمار کاربران</h3>
+                            <canvas id="usersChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>فروش بر اساس طبقه</h3>
+                            <canvas id="floorsSalesChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Content Section -->
+                <section id="content" class="content-section">
+                    <div class="section-header">
+                        <h2>مدیریت محتوا</h2>
+                        <button class="btn btn-primary" onclick="showAddContentModal()">
+                            <i class="fas fa-plus"></i>
+                            افزودن محتوا جدید
+                        </button>
+                    </div>
+                    <div class="content-tabs">
+                        <button class="tab-btn active" data-tab="banners">بنرها</button>
+                        <button class="tab-btn" data-tab="pages">صفحات</button>
+                        <button class="tab-btn" data-tab="notifications">اطلاعیه‌ها</button>
+                    </div>
+                    <div class="tab-content active" id="banners">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>عنوان</th>
+                                        <th>تصویر</th>
+                                        <th>وضعیت</th>
+                                        <th>تاریخ ایجاد</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Banners data will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="content-section">
+                    <div class="section-header">
+                        <h2>تنظیمات سیستم</h2>
+                    </div>
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <h3>تنظیمات عمومی</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>نام سایت</label>
+                                    <input type="text" value="ایرانچه" id="siteName">
+                                </div>
+                                <div class="form-group">
+                                    <label>توضیحات سایت</label>
+                                    <textarea id="siteDescription">اولین و بزرگترین مجتمع تجاری آنلاین ایران</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>آدرس ایمیل</label>
+                                    <input type="email" value="info@iranche.com" id="siteEmail">
+                                </div>
+                                <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
+                            </form>
+                        </div>
+                        <div class="settings-card">
+                            <h3>تنظیمات امنیتی</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>رمز عبور فعلی</label>
+                                    <input type="password" id="currentPassword">
+                                </div>
+                                <div class="form-group">
+                                    <label>رمز عبور جدید</label>
+                                    <input type="password" id="newPassword">
+                                </div>
+                                <div class="form-group">
+                                    <label>تکرار رمز عبور</label>
+                                    <input type="password" id="confirmPassword">
+                                </div>
+                                <button type="submit" class="btn btn-primary">تغییر رمز عبور</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">عنوان مودال</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>در حال بارگذاری...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

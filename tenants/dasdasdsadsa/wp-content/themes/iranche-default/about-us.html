@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<!-- Mirrored from amirtttk.ir/sorena/about-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Sep 2025 08:38:13 GMT -->
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>درباره ما</title>
+
+  <link rel="stylesheet" href="assets/css/main.css">
+
+</head>
+<body class="max-w-[1600px] mx-auto bg-[#fcfcfc]">
+  <header class="fixed w-full max-w-[1600px] border-b z-50 bg-white">
+    <!-- search bar -->
+    <div class="items-center z-50 flex-wrap gap-y-5 bg-white rounded-lg overflow-hidden p-2 justify-between drop-shadow-md absolute top-0 left-3 w-11/12 max-w-4xl hidden" id="searchBar">
+      <svg class="fill-blue-500" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
+      <input class="text-base text-gray-700 flex-grow outline-none px-2" type="text" placeholder="نام محصول را وارد کنید" />
+      <div class="md:flex items-center rounded-lg pl-2 gap-x-2 mx-auto">
+        <select id="category" class="text-sm text-gray-800 outline-none border-2 p-2 rounded-lg cursor-pointer">
+          <option value="all" selected>انتخاب دسته بندی</option>
+          <option value="mobile">موبایل</option>
+          <option value="home">لوازم خانگی</option>
+          <option value="laptop">لپ تاپ</option>
+        </select>
+        <button class="bg-blue-500 hover:bg-blue-400 transition text-white rounded-lg px-4 py-2 md:px-6 md:py-2 text-sm">
+          جستجو
+        </button>
+      </div>
+    </div>
+    <!-- header -->
+    <div class="flex flex-row-reverse sm:flex-row items-center justify-between py-4 max-w-[1600px] gap-y-5 flex-wrap lg:flex-nowrap">
+      <!-- btn menu mobile -->
+      <svg class="order-2 sm:order-none md:hidden" onclick="showNavbar()" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>
+      <!-- navbar moblie -->
+      <div class="flex absolute w-full h-screen z-50 -right-full top-0 transition-all ease-out duration-500" id="navbar">
+        <div class="bg-white w-9/12 h-screen py-5 drop-shadow-2xl max-w-md">
+          <div class="mx-auto mb-5">
+            <a href="#">
+              <img class="w-44 mx-auto" src="assets/image/logo.png" alt="">
+            </a>
+          </div>
+          <ul class="flex flex-col gap-y-3 px-2">
+              <li class="text-zinc-700 hover:text-zinc-900 hover:bg-gray-200 transition p-2 rounded-lg">
+                <a href="#">
+                  صفحه اصلی
+                </a>
+              </li>
+              <li class="text-zinc-700 hover:text-zinc-900 group">
+                <a class="relative">
+                  <div class="flex gap-x-1 items-center hover:bg-gray-200 transition p-2 rounded-lg">
+                    فروشگاه
+                    <svg class="group-hover:rotate-180 transition-all duration-500" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </div>
+                  <div class="bg-white hidden group-hover:flex flex-col p-2 top-5 w-full rounded-lg shadow-xl">
+                    <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="#">
+                      سوپر مارکت
+                    </a>
+                    <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="#">
+                      موبایل
+                    </a>
+                    <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="#">
+                      لپ تاپ
+                    </a>
+                    <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="#">
+                      لوازم خانگی
+                    </a>
+                  </div>
+                </a>
+              </li>
+              <li class="text-zinc-700 hover:text-zinc-900 hover:bg-gray-200 transition p-2 rounded-lg">
+                <a href="#">
+                  شگفت انگیز ها
+                </a>
+              </li>
+              <li class="text-zinc-700 hover:text-zinc-900 hover:bg-gray-200 transition p-2 rounded-lg">
+                <a href="#">
+                  پرفروش ترین ها
+                </a>
+              </li>
+              <li class="text-zinc-700 hover:text-zinc-900 hover:bg-gray-200 transition p-2 rounded-lg">
+                <a href="#">
+                  ارتباط با ما
+                </a>
+              </li>
+          </ul>
+        </div>
+        <div class="bg-white/30 w-3/12 sm:w-5/12 backdrop-blur-sm" onclick="bgNavbar()">
+        </div>
+      </div>
+      <!-- logo -->
+      <div class="order-2 pr-5 md:pr-10">
+        <a href="#">
+          <img class="w-32 md:w-44" src="assets/image/logo.png" alt="">
+        </a>
+      </div>
+      <!-- menu -->
+      <div class="hidden md:block order-3 lg:order-2 mt-5 lg:mt-0">
+        <ul class="flex gap-x-3 lg:gap-x-3 xl:gap-x-5">
+          <li class="text-zinc-700 hover:text-blue-600 hover:bg-gray-100 transition p-2 rounded-lg">
+            <a href="index-2.html">
+              صفحه اصلی
+            </a>
+          </li>
+          <li class="text-zinc-700 transition group">
+            <a class="relative block" href="search.html">
+              <div class="flex gap-x-1 items-center group-hover:text-blue-600 hover:bg-gray-200 transition p-2 rounded-lg">
+                <svg class="group-hover:fill-blue-500 transition" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#000000" viewBox="0 0 256 256"><path d="M136,120v56a8,8,0,0,1-16,0V120a8,8,0,0,1,16,0ZM239.86,98.11,226,202.12A16,16,0,0,1,210.13,216H45.87A16,16,0,0,1,30,202.12l-13.87-104A16,16,0,0,1,32,80H68.37L122,18.73a8,8,0,0,1,12,0L187.63,80H224a16,16,0,0,1,15.85,18.11ZM89.63,80h76.74L128,36.15ZM224,96H32L45.87,200H210.13Zm-51.16,23.2-5.6,56A8,8,0,0,0,174.4,184a7.44,7.44,0,0,0,.81,0,8,8,0,0,0,7.95-7.2l5.6-56a8,8,0,0,0-15.92-1.6Zm-89.68,0a8,8,0,0,0-15.92,1.6l5.6,56a8,8,0,0,0,8,7.2,7.44,7.44,0,0,0,.81,0,8,8,0,0,0,7.16-8.76Z"></path></svg>
+                فروشگاه
+                <svg class="group-hover:rotate-180 transition-all duration-500 group-hover:fill-blue-500" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+              </div>
+              <div class="bg-white hidden group-hover:flex flex-col p-2 absolute top-14 w-44 rounded-lg shadow-xl">
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="search.html">
+                  سوپر مارکت
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="search.html">
+                  موبایل
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="search.html">
+                  لپ تاپ
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="search.html">
+                  لوازم خانگی
+                </a>
+              </div>
+            </a>
+          </li>
+          <li class="text-zinc-700 hover:text-blue-600 hover:bg-gray-100 transition p-2 rounded-lg">
+            <a href="search.html">
+              شگفت انگیز ها
+            </a>
+          </li>
+          <li class="text-zinc-700 hover:text-blue-600 hover:bg-gray-100 transition p-2 rounded-lg">
+            <a href="search.html">
+              پرفروش ترین ها
+            </a>
+          </li>
+          <li class="text-zinc-700 hover:text-blue-600 hover:bg-gray-100 transition p-2 rounded-lg">
+            <a href="contact-us.html">
+              ارتباط با ما
+            </a>
+          </li>
+          <li class="text-zinc-700 transition group">
+            <a class="relative block" href="#">
+              <div class="flex gap-x-1 items-center group-hover:text-blue-600 hover:bg-gray-200 transition p-2 rounded-lg">
+                صفحات
+                <svg class="group-hover:rotate-180 transition-all duration-500 group-hover:fill-blue-500" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+              </div>
+              <div class="bg-white hidden group-hover:flex flex-col p-2 absolute top-14 w-44 rounded-lg shadow-xl">
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="index-2.html">
+                  صفحه اصلی
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="404.html">
+                  خطای 404
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="about-us.html">
+                  درباره ما
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="blog.html">
+                  بلاگ
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="cart.html">
+                  سبد خرید
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="checkout.html">
+                 پرداخت
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="login-register.html">
+                 ورود یا ثبت نام
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="profile.html">
+                  پروفایل داشبورد
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="search.html">
+                  جستجو محصول
+                </a>
+                <a class="hover:bg-blue-500 hover:text-gray-50 px-2 py-1 rounded-md mb-1 transition-all" href="single-product.html">
+                  جزئیات محصول
+                </a>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- buttonn -->
+      <div class="flex items-center justify-center gap-x-5 order-1 sm:order-2 pl-5 md:pl-10">
+        <!-- search -->
+        <button class="flex items-center p-2 rounded-xl bg-blue-500 hover:bg-blue-400 transition shadow-lg shadow-blue-500/50 group relative" type="button" onclick="searchBTN()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#ffffff" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
+        </button>
+        <!-- card -->
+        <div class="flex items-center p-2 rounded-xl bg-blue-500 hover:bg-blue-400 transition shadow-lg shadow-blue-500/50 group relative">
+          <button class="relative">
+            <span class="cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#ffffff" viewBox="0 0 256 256"><path d="M134,120v56a6,6,0,0,1-12,0V120a6,6,0,0,1,12,0ZM237.88,97.85,224,201.85A14,14,0,0,1,210.13,214H45.87A14,14,0,0,1,32,201.85l-13.87-104A14,14,0,0,1,32,82H69.28l54.2-61.95a6,6,0,0,1,9,0l54.2,62H224a14,14,0,0,1,13.87,15.85ZM85.22,82h85.56L128,33.11ZM225.5,94.68A2,2,0,0,0,224,94H32a2,2,0,0,0-1.51.68A2,2,0,0,0,30,96.26l13.86,104a2,2,0,0,0,2,1.73H210.13a2,2,0,0,0,2-1.73L226,96.26A1.93,1.93,0,0,0,225.5,94.68ZM181.4,114a6,6,0,0,0-6.57,5.37l-5.6,56A6,6,0,0,0,174.6,182l.61,0a6,6,0,0,0,6-5.4l5.6-56A6,6,0,0,0,181.4,114ZM81.17,119.4a6,6,0,0,0-11.94,1.2l5.6,56a6,6,0,0,0,6,5.4l.61,0a6,6,0,0,0,5.37-6.57Z"></path></svg>
+            </span>
+            <span class="absolute -right-3 -top-3 flex h-5 w-5 drop-shadow-lg cursor-pointer items-center justify-center rounded-full bg-white text-sm font-semibold text-blue-500">
+              2
+            </span>
+          </button>
+          <div class="z-50 group-hover:block -left-20 md:left-0 top-[39px] w-96 md:w-[400px] rounded-lg bg-white shadow-lg hidden absolute">
+            <!-- Head -->
+            <div class="flex items-center justify-between p-4 pb-2 border-b mx-5">
+              <div class="text-sm text-zinc-500">
+                2 کالا
+              </div>
+            </div>
+            <!-- Items -->
+            <div class="h-60">
+              <ul class="main-scroll h-full space-y-2 divide-y divide-gray-100 overflow-y-auto p-5 pl-2">
+                <li>
+                  <div class="flex gap-x-2 py-5">
+                    <!-- Product -->
+                    <div class="relative min-w-fit">
+                      <a href="single-product.html">
+                        <img alt="" class="h-[120px] w-[120px]" src="assets/image/products/1.webp">
+                      </a>
+                    </div>
+                    <div class="w-full space-y-1.5">
+                      <!-- Title -->
+                      <a class="line-clamp-2 h-12 text-zinc-700" href="single-product.html">
+                        لپ تاپ مدل لنوو
+                      </a>
+                      <!-- Attribute -->
+                      <div class="flex items-center gap-x-2 text-xs text-zinc-500">
+                        <div class="flex items-center gap-x-2">
+                          <span class="h-4 w-4 rounded-full bg-gray-900"></span>
+                          <span>مشکی</span>
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-x-2 text-xs text-zinc-500">
+                        <div class="flex items-center gap-x-2">
+                          <svg class="fill-red-700" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4d4d4d" viewBox="0 0 256 256"><path d="M245.57,117.78l-14-35a13.93,13.93,0,0,0-13-8.8H182V64a6,6,0,0,0-6-6H24A14,14,0,0,0,10,72V184a14,14,0,0,0,14,14H42.6a30,30,0,0,0,58.8,0h53.2a30,30,0,0,0,58.8,0H232a14,14,0,0,0,14-14V120A6,6,0,0,0,245.57,117.78ZM182,86h36.58a2,2,0,0,1,1.86,1.26L231.14,114H182ZM22,72a2,2,0,0,1,2-2H170v68H22ZM72,210a18,18,0,1,1,18-18A18,18,0,0,1,72,210Zm82.6-24H101.4a30,30,0,0,0-58.8,0H24a2,2,0,0,1-2-2V150H170v15.48A30.1,30.1,0,0,0,154.6,186ZM184,210a18,18,0,1,1,18-18A18,18,0,0,1,184,210Zm50-26a2,2,0,0,1-2,2H213.4A30.05,30.05,0,0,0,184,162c-.67,0-1.34,0-2,.07V126h52Z"></path></svg>
+                          <span>ارسال پست پیشتاز</span>
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-between gap-x-2">
+                        <!-- Price -->
+                        <div class="text-gray-700">
+                          <span class="text-lg font-bold">1,800,000</span>
+                          <span class="text-sm">تومان</span>
+                        </div>
+                        <!-- Quantity -->
+                        <div class="flex h-10 w-24 items-center justify-between rounded-lg border border-gray-100 px-2 py-1">
+                          <button type="button" data-action="increment">
+                            <svg xlink:href="#plus" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#4d4d4d" viewBox="0 0 256 256"><path d="M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z"></path></svg>
+                          </button>
+                          <input value="1" disabled="" type="number" class="flex h-5 w-full grow select-none items-center justify-center bg-transparent text-center text-sm text-zinc-700 outline-none">
+                          <button type="button" data-action="decrement">
+                            <svg xlink:href="#minus" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#4d4d4d" viewBox="0 0 256 256"><path d="M222,128a6,6,0,0,1-6,6H40a6,6,0,0,1,0-12H216A6,6,0,0,1,222,128Z"></path></svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="flex gap-x-2 py-5">
+                    <!-- Product -->
+                    <div class="relative min-w-fit">
+                      <a href="single-product.html">
+                        <img alt="" class="h-[120px] w-[120px]" src="assets/image/products/2.webp">
+                      </a>
+                    </div>
+                    <div class="w-full space-y-1.5">
+                      <!-- Title -->
+                      <a class="line-clamp-2 h-12 text-zinc-700" href="single-product.html">
+                        دریل شارژی رگنار
+                      </a>
+                      <!-- Attribute -->
+                      <div class="flex items-center gap-x-2 text-xs text-zinc-500">
+                        <div class="flex items-center gap-x-2">
+                          <span class="h-4 w-4 rounded-full bg-gray-900"></span>
+                          <span>مشکی</span>
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-x-2 text-xs text-zinc-500">
+                        <div class="flex items-center gap-x-2">
+                          <svg class="fill-red-700" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4d4d4d" viewBox="0 0 256 256"><path d="M245.57,117.78l-14-35a13.93,13.93,0,0,0-13-8.8H182V64a6,6,0,0,0-6-6H24A14,14,0,0,0,10,72V184a14,14,0,0,0,14,14H42.6a30,30,0,0,0,58.8,0h53.2a30,30,0,0,0,58.8,0H232a14,14,0,0,0,14-14V120A6,6,0,0,0,245.57,117.78ZM182,86h36.58a2,2,0,0,1,1.86,1.26L231.14,114H182ZM22,72a2,2,0,0,1,2-2H170v68H22ZM72,210a18,18,0,1,1,18-18A18,18,0,0,1,72,210Zm82.6-24H101.4a30,30,0,0,0-58.8,0H24a2,2,0,0,1-2-2V150H170v15.48A30.1,30.1,0,0,0,154.6,186ZM184,210a18,18,0,1,1,18-18A18,18,0,0,1,184,210Zm50-26a2,2,0,0,1-2,2H213.4A30.05,30.05,0,0,0,184,162c-.67,0-1.34,0-2,.07V126h52Z"></path></svg>
+                          <span>ارسال پست پیشتاز</span>
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-between gap-x-2">
+                        <!-- Price -->
+                        <div class="text-gray-700">
+                          <span class="text-lg font-bold">1,800,000</span>
+                          <span class="text-sm">تومان</span>
+                        </div>
+                        <!-- Quantity -->
+                        <div class="flex h-10 w-24 items-center justify-between rounded-lg border border-gray-100 px-2 py-1">
+                          <button type="button" data-action="increment">
+                            <svg xlink:href="#plus" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#4d4d4d" viewBox="0 0 256 256"><path d="M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z"></path></svg>
+                          </button>
+                          <input value="1" disabled="" type="number" class="flex h-5 w-full grow select-none items-center justify-center bg-transparent text-center text-sm text-zinc-700 outline-none">
+                          <button type="button" data-action="decrement">
+                            <svg xlink:href="#minus" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#4d4d4d" viewBox="0 0 256 256"><path d="M222,128a6,6,0,0,1-6,6H40a6,6,0,0,1,0-12H216A6,6,0,0,1,222,128Z"></path></svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- Down Price -->
+            <div class="flex items-center justify-between border-t border-gray-100 p-5">
+              <div class="flex flex-col items-center gap-y-1">
+                <div class="text-sm text-zinc-600">
+                  مبلغ قابل پرداخت
+                </div>
+                <div class="text-zinc-600">
+                  <span class="font-bold">3,600,000</span>
+                  <span class="text-xs">تومان</span>
+                </div>
+              </div>
+              <a href="checkout.html" class="w-28 py-3 text-sm bg-blue-500 hover:bg-blue-400 transition text-gray-100 rounded-xl text-center">
+                <button type="button">
+                  ثبت سفارش
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Account -->
+        <div class="flex items-center py-2 px-2 rounded-xl bg-blue-500 hover:bg-blue-400 transition shadow-lg shadow-blue-500/50 group relative">
+          <button class="text-gray-100 flex gap-x-1 items-center" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#ffffff" viewBox="0 0 256 256"><path d="M229.19,213c-15.81-27.32-40.63-46.49-69.47-54.62a70,70,0,1,0-63.44,0C67.44,166.5,42.62,185.67,26.81,213a6,6,0,1,0,10.38,6C56.4,185.81,90.34,166,128,166s71.6,19.81,90.81,53a6,6,0,1,0,10.38-6ZM70,96a58,58,0,1,1,58,58A58.07,58.07,0,0,1,70,96Z"></path></svg>
+            <span class="hidden md:block text-sm">
+              حساب کاربری
+            </span>
+          </button>
+          <div class="z-50 group-hover:block left-0 top-[39px] w-60 rounded-lg bg-white shadow-lg hidden absolute">
+            <ul class="space-y-1 p-2">
+              <li>
+                <a class="flex items-center justify-between gap-x-2 rounded-lg p-2 text-zinc-700 hover:text-zinc-800 transition hover:bg-gray-100" href="profile.html">
+                  <span class="flex items-center gap-x-2">
+                    <span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4d4d4d" viewBox="0 0 256 256"><path d="M229.19,213c-15.81-27.32-40.63-46.49-69.47-54.62a70,70,0,1,0-63.44,0C67.44,166.5,42.62,185.67,26.81,213a6,6,0,1,0,10.38,6C56.4,185.81,90.34,166,128,166s71.6,19.81,90.81,53a6,6,0,1,0,10.38-6ZM70,96a58,58,0,1,1,58,58A58.07,58.07,0,0,1,70,96Z"></path></svg>
+                    </span>
+                    <span class="text-sm">امیررضا کریمی</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a class="flex items-center justify-between gap-x-2 rounded-lg p-2 text-zinc-700 hover:text-zinc-800 transition hover:bg-gray-100" href="profile-order.html">
+                  <span class="flex items-center gap-x-2">
+                    <span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4d4d4d" viewBox="0 0 256 256"><path d="M237.9,198.36l-14.25-120a14.06,14.06,0,0,0-14-12.36H174V64a46,46,0,0,0-92,0v2H46.33a14.06,14.06,0,0,0-14,12.36l-14.25,120a14,14,0,0,0,14,15.64H223.92a14,14,0,0,0,14-15.64ZM94,64a34,34,0,0,1,68,0v2H94ZM225.5,201.3a2.07,2.07,0,0,1-1.58.7H32.08a2.07,2.07,0,0,1-1.58-.7,1.92,1.92,0,0,1-.49-1.53l14.26-120A2,2,0,0,1,46.33,78H209.67a2,2,0,0,1,2.06,1.77l14.26,120A1.92,1.92,0,0,1,225.5,201.3Z"></path></svg>
+                    </span>
+                    <span class="text-sm">سفارش ها</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a class="flex items-center justify-between gap-x-2 rounded-lg p-2 text-zinc-700 hover:text-zinc-800 transition hover:bg-gray-100" href="profile-favorites.html">
+                  <span class="flex items-center gap-x-2">
+                    <span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4d4d4d" viewBox="0 0 256 256"><path d="M178,34c-21,0-39.26,9.47-50,25.34C117.26,43.47,99,34,78,34A60.07,60.07,0,0,0,18,94c0,29.2,18.2,59.59,54.1,90.31a334.68,334.68,0,0,0,53.06,37,6,6,0,0,0,5.68,0,334.68,334.68,0,0,0,53.06-37C219.8,153.59,238,123.2,238,94A60.07,60.07,0,0,0,178,34ZM128,209.11C111.59,199.64,30,149.72,30,94A48.05,48.05,0,0,1,78,46c20.28,0,37.31,10.83,44.45,28.27a6,6,0,0,0,11.1,0C140.69,56.83,157.72,46,178,46a48.05,48.05,0,0,1,48,48C226,149.72,144.41,199.64,128,209.11Z"></path></svg>
+                    </span>
+                    <span class="text-sm">علاقه مندی ها</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a class="flex items-center justify-between gap-x-2 rounded-lg p-2 text-zinc-700 hover:text-zinc-800 transition hover:bg-gray-100" href="profile-messages.html">
+                  <span class="flex items-center gap-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4d4d4d" viewBox="0 0 256 256"><path d="M227.33,91l-96-64a6,6,0,0,0-6.66,0l-96,64A6,6,0,0,0,26,96V200a14,14,0,0,0,14,14H216a14,14,0,0,0,14-14V96A6,6,0,0,0,227.33,91ZM100.18,152,38,195.9V107.65Zm12.27,6h31.1l62.29,44H50.16Zm43.37-6L218,107.65V195.9ZM128,39.21l85.43,57L143.53,146H112.47L42.57,96.17Z"></path></svg>
+                    <span>پیغام ها</span>
+                  </span>
+                  <span class="relative flex h-5 w-5">
+                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-500 opacity-75"></span>
+                    <span class="relative inline-flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-sm text-white">
+                      4
+                    </span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a class="flex items-center justify-between gap-x-2 rounded-lg p-2 text-red-500 hover:text-red-600 transition hover:bg-red-100" href="#">
+                  <div class="flex items-center gap-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4d4d4d" viewBox="0 0 256 256"><path d="M110,216a6,6,0,0,1-6,6H48a14,14,0,0,1-14-14V48A14,14,0,0,1,48,34h56a6,6,0,0,1,0,12H48a2,2,0,0,0-2,2V208a2,2,0,0,0,2,2h56A6,6,0,0,1,110,216Zm110.24-92.24-40-40a6,6,0,0,0-8.48,8.48L201.51,122H104a6,6,0,0,0,0,12h97.51l-29.75,29.76a6,6,0,1,0,8.48,8.48l40-40A6,6,0,0,0,220.24,123.76Z"></path></svg>
+                    <span>خروج از حساب کاربری</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="pt-20 md:pt-40 lg:pt-[73px]">
+    <div class="bg-white shadow-large lg:my-10 mx-5 rounded-xl md:rounded-2xl p-3 md:p-5 border">
+      <div class="relative flex justify-center items-center mb-5">
+        <img class="w-full h-96 md:h-[500px] object-center object-cover rounded-xl blur-sm" src="assets/image/workspace.jpg" alt="">
+        <div class="absolute top-0 bg-zinc-400 bg-opacity-50 w-full h-full flex justify-center items-center text-white font-semibold rounded-xl">
+          <div class="text-center space-y-5">
+            <div class="text-3xl sm:text-3xl md:text-5xl">سورنا تقدیم می کند</div>
+            <div class="text-xl sm:text-2xl md:text-4xl">به شرکت مهندسی و فروشگاهی  سورنا خوش آمدید</div>
+          </div>
+        </div>
+      </div>
+      <div class="leading-10">
+        <div class="mb-2 text-lg font-semibold text-zinc-800">
+          درباره شرکت
+        </div>
+        <div class="text-zinc-700" style="line-height: 1.8rem;">
+          سورنا مرجع تخصصی نقد و بررسی و فروش اینترنتی کالا در ایران است.  مختلف کالا مانند کالای دیجیتال، لوازم خانگی، لوازم شخصی، فرهنگ و هنر و ورزش و سرگرمی با تنوعی بی‌نظیر در سورنا عرضه . سورنا با در اختیار داشتن سهم  از بازار عرضه اینترنتی کالا در ایران با تنوعی بسیار بالا از برندهای مختلف، در همراهی مشتریان در فرآیند خرید و حفظ جایگاه  در میان آنها، نهایت تلاش خود را . کاربران و مشتریان سورنا  با حق انتخابی بسیار بالا و با دریافت اطلاعاتی کامل برای انتخاب درست کالای مورد نظر خود، وب سایت سورنا را بررسی کنند و با حداکثر اطمینان کالای خود را انتخاب و خرید کنند. همواره بهترین انتخاب و بهترین خدمات، شایسته مشتری سورنا است.
+        </div>
+        <div class="mb-2 mt-4 text-lg font-semibold text-zinc-800">
+          درباره تیم ما
+        </div>
+        <div class="leading-8 text-zinc-700" style="line-height: 1.8rem;">
+          سورنا با ارائه طیف  از معتبرترین برندها در  مختلف و با همکاری نزدیک با  و  کنندگان اصلی این کالاها در ایران، تلاش  تا نیازهای متفاوت مشتریان با  متفاوت آنان را برآورده سازد. ارائه  کاملا رقابتی و مناسب، همراه با کیفیت مطلوب خدمات پس از فروش از  سورنا محسوب می‌شود. سورنا با درک اهمیت این موضوع برای مشتریان خود و با بکارگیری نهایت توان و ابزارهای در دسترس در تعاملات خود با تامین‏ کنندگان، می‏‏‌کوشد امکان ارائه پایین‏‏‌ترین قیمت‏‏‌ها و بهترین خدمات را فراهم آورد. طرح‏‏‌های مشوق خرید همواره مورد توجه مشتریان بوده و سورنا نیز به منظور قدردانی از مشتریان وفادار خود همواره تخفیف‏‌های قابل توجهی را در قالب طرح‌های مختلف مشوق خرید برای آنان در نظر می‏‏‌گیرد. کیفیت و سهولت استفاده از وب‏ سایت سورنا و خدمات ارائه شده در آن، همواره یکی از مهم‏‌ترین و با اولویت‌ترین موضوعات در سورنا بوده است و همه کارکنان فنی و تخصصی آن نهایت تلاش خود را به عمل می‌آورند تا با ارائه با‏کیفیت‏‌ترین و به‏‌روز‏ترین  مبتنی بر وب و تسهیل تمامی فرآیندهای بررسی، انتخاب و خرید کالا در وب سایت سورنا، خدماتی شایسته و تجربه‌ای خوشایند را برای مخاطبان خود به ارمغان بیاورند.        
+        </div>
+        <div class="mb-2 mt-4 text-lg font-semibold text-zinc-800">
+          نحوه تاسیس شرکت
+        </div>
+        <div class="leading-8 text-zinc-700" style="line-height: 1.8rem;">
+          سورنا مرجع تخصصی نقد و بررسی و فروش اینترنتی کالا در ایران است.  مختلف کالا مانند کالای دیجیتال، لوازم خانگی، لوازم شخصی، فرهنگ و هنر و ورزش و سرگرمی با تنوعی بی‌نظیر در سورنا عرضه . سورنا با در اختیار داشتن سهم  از بازار عرضه اینترنتی کالا در ایران با تنوعی بسیار بالا از برندهای مختلف، در همراهی مشتریان در فرآیند خرید و حفظ جایگاه  در میان آنها، نهایت تلاش خود را . کاربران و مشتریان سورنا  با حق انتخابی بسیار بالا و با دریافت اطلاعاتی کامل برای انتخاب درست کالای مورد نظر خود، وب سایت سورنا را بررسی کنند و با حداکثر اطمینان کالای خود را انتخاب و خرید کنند. همواره بهترین انتخاب و بهترین خدمات، شایسته مشتری سورنا است.
+        </div>
+        <div class="mb-2 mt-4 text-lg font-semibold text-zinc-800">
+          داستان ما تا اینجا
+        </div>
+        <div class="leading-8 text-zinc-700" style="line-height: 1.8rem;">
+          سورنا مرجع تخصصی نقد و بررسی و فروش اینترنتی کالا در ایران است.  مختلف کالا مانند کالای دیجیتال، لوازم خانگی، لوازم شخصی، فرهنگ و هنر و ورزش و سرگرمی با تنوعی بی‌نظیر در سورنا عرضه . سورنا با در اختیار داشتن سهم  از بازار عرضه اینترنتی کالا در ایران با تنوعی بسیار بالا از برندهای مختلف، در همراهی مشتریان در فرآیند خرید و حفظ جایگاه  در میان آنها، نهایت تلاش خود را . کاربران و مشتریان سورنا  با حق انتخابی بسیار بالا و با دریافت اطلاعاتی کامل برای انتخاب درست کالای مورد نظر خود، وب سایت سورنا را بررسی کنند و با حداکثر اطمینان کالای خود را انتخاب و خرید کنند. همواره بهترین انتخاب و بهترین خدمات، شایسته مشتری سورنا است.
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="rounded-t-2xl border shadow-xl mt-5 py-5 mx-3 bg-white">
+    <div class="flex flex-wrap gap-y-4 justify-between items-center px-6">
+      <div class="flex flex-col">
+        <div>
+          <img class="w-32" src="assets/image/logo.png" alt="">
+        </div>
+        <div class="text-sm text-zinc-600 mt-3">
+          تلفن پشتیبانی 44444444-021
+        </div>
+      </div>
+      <div>
+        <button type="button" class="flex items-center gap-x-1 border border-gray-500 rounded-lg px-3 py-2 text-zinc-600 text-sm md:text-base" id="btn-back-to-top">
+          برو به بالا
+          <svg class="fill-gray-600" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="" viewBox="0 0 256 256"><path d="M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm44.24-78.24a6,6,0,1,1-8.48,8.48L128,112.49,92.24,148.24a6,6,0,0,1-8.48-8.48l40-40a6,6,0,0,1,8.48,0Z"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="bg-blue-700 grid justify-items-center gap-y-7 grid-cols-1 md:grid-cols-3 lg:grid-cols-5 p-5 my-7 shadow-lg">
+      <div class="flex gap-x-2 pr-20 md:pr-0 md:justify-center items-center w-full lg:border-l">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="#ffffff" viewBox="0 0 256 256"><path d="M200.47,56.07A101.37,101.37,0,0,0,128.77,26H128A102,102,0,0,0,26,128v56a22,22,0,0,0,22,22H64a22,22,0,0,0,22-22V144a22,22,0,0,0-22-22H38.2A90,90,0,0,1,128,38h.68a89.71,89.71,0,0,1,89.13,84H192a22,22,0,0,0-22,22v40a22,22,0,0,0,22,22h26v2a26,26,0,0,1-26,26H136a6,6,0,0,0,0,12h56a38,38,0,0,0,38-38V128A101.44,101.44,0,0,0,200.47,56.07ZM64,134a10,10,0,0,1,10,10v40a10,10,0,0,1-10,10H48a10,10,0,0,1-10-10V134Zm118,50V144a10,10,0,0,1,10-10h26v60H192A10,10,0,0,1,182,184Z"></path></svg>
+        </div>
+        <div>
+          <div class="text-sm mb-1 text-white">
+            پشتیبانی 24 ساعته
+          </div>
+          <div class="text-xs text-gray-200">
+            7 روز هفته 24 ساعته
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-x-2 pr-20 md:pr-0 md:justify-center items-center w-full lg:border-l">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="#ffffff" viewBox="0 0 256 256"><path d="M222.72,67.91l-88-48.18a13.9,13.9,0,0,0-13.44,0l-88,48.18A14,14,0,0,0,26,80.18v95.64a14,14,0,0,0,7.28,12.27l88,48.18a13.92,13.92,0,0,0,13.44,0l88-48.18A14,14,0,0,0,230,175.82V80.18A14,14,0,0,0,222.72,67.91ZM127,30.25a2,2,0,0,1,1.92,0L212.51,76,178.57,94.57,94.05,48.31ZM122,223,39,177.57a2,2,0,0,1-1-1.75V86.66l84,46ZM43.49,76,81.56,55.15l84.51,46.26L128,122.24ZM218,175.82a2,2,0,0,1-1,1.75h0L134,223V132.64l36-19.71V152a6,6,0,0,0,12,0V106.37l36-19.71Z"></path></svg>
+        </div>
+        <div>
+          <div class="text-sm mb-1 text-white">
+            تحویل سریع نرم افزار
+          </div>
+          <div class="text-xs text-gray-200">
+            تحویل اپلیکیشن
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-x-2 pr-20 md:pr-0 md:justify-center items-center w-full lg:border-l">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="#ffffff" viewBox="0 0 256 256"><path d="M208,42H48A14,14,0,0,0,34,56v58.77c0,88.24,74.68,117.52,89.65,122.49a13.5,13.5,0,0,0,8.7,0c15-5,89.65-34.25,89.65-122.49V56A14,14,0,0,0,208,42Zm2,72.79c0,80-67.84,106.59-81.44,111.1a1.55,1.55,0,0,1-1.12,0C113.84,221.38,46,194.79,46,114.79V56a2,2,0,0,1,2-2H208a2,2,0,0,1,2,2Zm-37.76-15a6,6,0,0,1,0,8.48l-56,56a6,6,0,0,1-8.48,0l-24-24a6,6,0,0,1,8.48-8.48L112,151.51l51.76-51.75A6,6,0,0,1,172.24,99.76Z"></path></svg>
+        </div>
+        <div>
+          <div class="text-sm mb-1 text-white">
+            امنیت بالا
+          </div>
+          <div class="text-xs text-gray-200">
+            دارای آنتی ویروس
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-x-2 pr-20 md:pr-0 md:justify-center items-center w-full lg:border-l">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="#ffffff" viewBox="0 0 256 256"><path d="M224,74H206V64a22,22,0,0,0-22-22H40A22,22,0,0,0,18,64v96a22,22,0,0,0,22,22H154v10a22,22,0,0,0,22,22h48a22,22,0,0,0,22-22V96A22,22,0,0,0,224,74ZM40,170a10,10,0,0,1-10-10V64A10,10,0,0,1,40,54H184a10,10,0,0,1,10,10V74H176a22,22,0,0,0-22,22v74Zm194,22a10,10,0,0,1-10,10H176a10,10,0,0,1-10-10V96a10,10,0,0,1,10-10h48a10,10,0,0,1,10,10ZM134,208a6,6,0,0,1-6,6H88a6,6,0,0,1,0-12h40A6,6,0,0,1,134,208Zm80-96a6,6,0,0,1-6,6H192a6,6,0,0,1,0-12h16A6,6,0,0,1,214,112Z"></path></svg>
+        </div>
+        <div>
+          <div class="text-sm mb-1 text-white">
+            پشتیبانی در همه دستگاه ها
+          </div>
+          <div class="text-xs text-gray-200">
+            موبایل، لپ تاپ و...
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-x-2 pr-20 md:pr-0 md:justify-center items-center w-full">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="#ffffff" viewBox="0 0 256 256"><path d="M62,106.6V40a6,6,0,0,0-12,0v66.6a30,30,0,0,0,0,58.8V216a6,6,0,0,0,12,0V165.4a30,30,0,0,0,0-58.8ZM56,154a18,18,0,1,1,18-18A18,18,0,0,1,56,154Zm78-95.4V40a6,6,0,0,0-12,0V58.6a30,30,0,0,0,0,58.8V216a6,6,0,0,0,12,0V117.4a30,30,0,0,0,0-58.8ZM128,106a18,18,0,1,1,18-18A18,18,0,0,1,128,106Zm102,62a30.05,30.05,0,0,0-24-29.4V40a6,6,0,0,0-12,0v98.6a30,30,0,0,0,0,58.8V216a6,6,0,0,0,12,0V197.4A30.05,30.05,0,0,0,230,168Zm-30,18a18,18,0,1,1,18-18A18,18,0,0,1,200,186Z"></path></svg>
+        </div>
+        <div>
+          <div class="text-sm mb-1 text-white">
+            شخصی سازی کامل
+          </div>
+          <div class="text-xs text-gray-200">
+            تغییر با دلخواه شما
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-7 lg:grid-cols-4 px-10">
+      <div>
+        <div class="text-blue-700 mb-4 text-lg font-bold">
+          دسترسی سریع
+        </div>
+        <div class="">
+          <ul class="flex flex-col gap-y-4">
+            <li>
+              <a class="text-gray-800 hover:text-blue-600 transition" href="#">
+                تعرفه ها
+              </a>
+            </li>
+            <li>
+              <a class="text-gray-800 hover:text-blue-600 transition" href="faq.html">
+                سوالات متداول
+              </a>
+            </li>
+            <li>
+              <a class="text-gray-800 hover:text-blue-600 transition" href="contact-us.html">
+                تماس با ما
+              </a>
+            </li>
+            <li>
+              <a class="text-gray-800 hover:text-blue-600 transition" href="about-us.html">
+                درباره ما
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="text-blue-700 mb-4 text-lg font-bold">
+          ارتباط مستقیم
+        </div>
+        <div class="">
+          <ul class="flex flex-col gap-y-4">
+            <li>
+              <a class="text-gray-800 hover:text-blue-600 transition flex items-center gap-x-1 group w-fit" href="#">
+                <svg class="group-hover:fill-blue-600" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000" viewBox="0 0 256 256"><path d="M128,66a38,38,0,1,0,38,38A38,38,0,0,0,128,66Zm0,64a26,26,0,1,1,26-26A26,26,0,0,1,128,130Zm0-112a86.1,86.1,0,0,0-86,86c0,30.91,14.34,63.74,41.47,94.94a252.32,252.32,0,0,0,41.09,38,6,6,0,0,0,6.88,0,252.32,252.32,0,0,0,41.09-38c27.13-31.2,41.47-64,41.47-94.94A86.1,86.1,0,0,0,128,18Zm0,206.51C113,212.93,54,163.62,54,104a74,74,0,0,1,148,0C202,163.62,143,212.93,128,224.51Z"></path></svg>
+              تهران-خیابان دماوند
+              </a>
+            </li>
+            <li>
+              <a class="text-gray-800 hover:text-blue-600 transition flex items-center gap-x-1 group w-fit" href="#">
+                <svg class="group-hover:fill-blue-600" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000" viewBox="0 0 256 256"><path d="M128,26a102,102,0,0,0,0,204c21.13,0,43.31-6.35,59.32-17a6,6,0,0,0-6.65-10c-13.9,9.25-34.09,15-52.67,15a90,90,0,1,1,90-90c0,29.58-13.78,34-22,34s-22-4.42-22-34V88a6,6,0,0,0-12,0v9a46,46,0,1,0,4.34,56.32C171.76,166.6,182,174,196,174c21.29,0,34-17.2,34-46A102.12,102.12,0,0,0,128,26Zm0,136a34,34,0,1,1,34-34A34,34,0,0,1,128,162Z"></path></svg>
+                example@gmail.com
+              </a>
+            </li>
+            <li>
+              <a class="text-gray-800 hover:text-blue-600 transition flex items-center gap-x-1 group w-fit" href="#">
+                <svg class="group-hover:fill-blue-600" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#050505" viewBox="0 0 256 256"><path d="M176,18H80A22,22,0,0,0,58,40V216a22,22,0,0,0,22,22h96a22,22,0,0,0,22-22V40A22,22,0,0,0,176,18Zm10,198a10,10,0,0,1-10,10H80a10,10,0,0,1-10-10V40A10,10,0,0,1,80,30h96a10,10,0,0,1,10,10ZM138,60a10,10,0,1,1-10-10A10,10,0,0,1,138,60Z"></path></svg>
+                0912345678
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="text-blue-700 text-lg font-bold">
+          ما را دنبال کنید
+        </div>
+        <div class="my-5 text-zinc-800">
+          برای دریافت آخرین اخبار و آفرها ایمیل خود را وارد کنید تا در خبرنامه عضو شوید.
+        </div>
+        <div class="flex gap-x-2">
+          <input class="w-full border-2 border-blue-400 outline-none text-sm rounded-lg py-2 px-2 h-full" type="email" placeholder="ایمیل خود را وارد کنید">
+          <div>
+            <button class="bg-blue-700 hover:bg-blue-600 transition text-white rounded-lg w-full h-full px-6" type="submit">
+              ارسال
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="flex md:justify-end gap-x-5">
+        <img class="max-w-32 h-fit" src="assets/image/service/symbol-01.png" alt="">
+        <img class="max-w-32 h-fit" src="assets/image/service/symbol-02.png" alt="">
+      </div>
+    </div>
+    <div class="mt-5 border-t w-full text-xs text-zinc-500 pr-5 pt-5">
+      تمامی حقوق محفوظ است 2024
+    </div>
+  </footer>
+</body>
+<script src="assets/js/main.js"></script>
+
+<!-- Mirrored from amirtttk.ir/sorena/about-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Sep 2025 08:38:14 GMT -->
+</html>
