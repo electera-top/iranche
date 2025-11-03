@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت فایل‌ها - پنل مدیریت ایرانچه</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="css/vendors/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">مدیریت فایل‌ها</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-menu">
+                        <div class="user-avatar">
+                            <img src="https://via.placeholder.com/40" alt="Admin">
+                        </div>
+                        <span class="user-name">مدیر سیستم</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- File Categories Section -->
+                <section class="content-section active">
+                    <div class="section-header">
+                        <h2>دسته‌بندی فایل‌ها</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" onclick="showUploadModal()">
+                                <i class="fas fa-upload"></i>
+                                آپلود فایل جدید
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- File Categories Grid -->
+                    <div class="file-categories-grid" id="fileCategoriesGrid">
+                        <!-- Categories will be loaded here -->
+                    </div>
+
+                    <!-- Files Table -->
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>فایل‌های <span id="currentCategoryName">همه دسته‌ها</span></h3>
+                            <div class="table-filters">
+                                <select id="fileTypeFilter" class="filter-select">
+                                    <option value="">همه انواع فایل</option>
+                                    <option value="image">تصاویر</option>
+                                    <option value="document">اسناد</option>
+                                    <option value="video">ویدیو</option>
+                                    <option value="audio">صوت</option>
+                                    <option value="archive">آرشیو</option>
+                                    <option value="other">سایر</option>
+                                </select>
+                                <input type="text" id="searchFiles" placeholder="جستجو در فایل‌ها..." class="search-input">
+                            </div>
+                        </div>
+                        <table class="data-table" id="filesTable">
+                            <thead>
+                                <tr>
+                                    <th>نام فایل</th>
+                                    <th>نوع</th>
+                                    <th>حجم</th>
+                                    <th>دسته‌بندی</th>
+                                    <th>آپلود شده توسط</th>
+                                    <th>تاریخ</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="filesTableBody">
+                                <!-- Files data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>آپلود فایل جدید</h3>
+                <button class="modal-close" onclick="closeUploadModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="uploadForm" class="upload-form">
+                    <div class="form-group">
+                        <label for="fileCategory">دسته‌بندی فایل *</label>
+                        <select id="fileCategory" name="category" required>
+                            <option value="">انتخاب دسته‌بندی</option>
+                            <option value="shops">فایل های فروشگاه ها</option>
+                            <option value="users">کاربران</option>
+                            <option value="core">هسته</option>
+                            <option value="categories">دسته بندی ها</option>
+                            <option value="brands">برند ها</option>
+                            <option value="chats">چت ها</option>
+                            <option value="themes">قالب ها</option>
+                            <option value="plugins">افزونه ها</option>
+                            <option value="services">خدمات</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="altText">متن جایگزین (Alt Text)</label>
+                        <input type="text" id="altText" name="alt_text" 
+                               placeholder="توضیح کوتاه برای فایل">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>فایل‌ها *</label>
+                        <div id="dropzone" class="dropzone">
+                            <div class="dropzone-content">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>فایل‌ها را اینجا بکشید یا کلیک کنید</p>
+                                <p class="dropzone-info">بدون محدودیت حجم و تعداد</p>
+                            </div>
+                        </div>
+                        <div id="dropzone-previews" class="dropzone-previews"></div>
+                        <div id="file-count" class="file-count-info">
+                            <span id="file-count-text">0 فایل انتخاب شده</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeUploadModal()">
+                            انصراف
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="uploadBtn" disabled>
+                            <i class="fas fa-upload"></i>
+                            آپلود فایل‌ها
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteFileModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>حذف فایل</h3>
+                <button class="modal-close" onclick="closeDeleteFileModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="delete-confirmation">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>آیا مطمئن هستید که می‌خواهید این فایل را حذف کنید؟</p>
+                    <p class="warning-text">این عمل قابل بازگشت نیست و فایل از سرور نیز حذف خواهد شد.</p>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeDeleteFileModal()">
+                        انصراف
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="confirmDeleteFile()">
+                        <i class="fas fa-trash"></i>
+                        حذف فایل
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>در حال بارگذاری...</p>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="css/vendors/dropzone/dropzone.css">
+    <script src="js/vendors/dropzone/dropzone.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script>
+        // File Management JavaScript
+        let files = [];
+        let categories = [];
+        let currentCategory = '';
+        let currentDeletingFile = null;
+        let dropzone;
+        let dropzoneInitialized = false;
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCategories();
+            loadFiles();
+            setupEventListeners();
+            
+            // Wait a bit for all scripts to load
+            setTimeout(() => {
+                // Check if Dropzone is available
+                console.log('Dropzone available:', typeof Dropzone !== 'undefined');
+                
+                if (typeof Dropzone !== 'undefined') {
+                    console.log('Initializing Dropzone...');
+            initializeDropzone();
+                } else {
+                    console.log('Dropzone not found, using fallback...');
+                    initializeFallbackUpload();
+                }
+            }, 200);
+        });
+
+        function setupEventListeners() {
+            // File type filter
+            document.getElementById('fileTypeFilter').addEventListener('change', function() {
+                loadFiles();
+            });
+
+            // Search files
+            document.getElementById('searchFiles').addEventListener('input', function() {
+                loadFiles();
+            });
+
+            // Upload form
+            document.getElementById('uploadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                uploadFile();
+            });
+        }
+
+        function initializeDropzone() {
+            // بررسی وجود Dropzone
+            if (typeof Dropzone === 'undefined') {
+                console.error('Dropzone library not available');
+                initializeFallbackUpload();
+                return;
+            }
+            
+            // بررسی اینکه آیا قبلاً initialize شده
+            if (dropzoneInitialized) {
+                console.log('Dropzone already initialized');
+                return;
+            }
+            
+            // حذف dropzone قبلی اگر وجود دارد
+            if (dropzone) {
+                dropzone.destroy();
+                dropzone = null;
+            }
+            
+            // بررسی اینکه آیا element قبلاً dropzone شده
+            const dropzoneElement = document.getElementById('dropzone');
+            if (dropzoneElement && dropzoneElement.dropzone) {
+                dropzoneElement.dropzone.destroy();
+                delete dropzoneElement.dropzone;
+            }
+            
+            // پاک کردن کلاس‌های قبلی
+            if (dropzoneElement) {
+                dropzoneElement.className = 'dropzone';
+            }
+            
+            try {
+            dropzone = new Dropzone("#dropzone", {
+                url: "http://localhost:3000/api/files/upload",
+                method: "post",
+                autoProcessQueue: false, // آپلود خودکار غیرفعال
+                maxFiles: null, // بدون محدودیت تعداد فایل
+                maxFilesize: null, // بدون محدودیت حجم
+                parallelUploads: 3, // آپلود همزمان 3 فایل
+                acceptedFiles: "image/*,application/pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.mp4,.mp3,.wav,.zip,.rar,.7z,.tar,.gz",
+                addRemoveLinks: true,
+                previewsContainer: "#dropzone-previews",
+                clickable: "#dropzone",
+                
+                // پیام‌های فارسی
+                dictDefaultMessage: "فایل‌ها را اینجا بکشید یا کلیک کنید",
+                dictRemoveFile: "حذف",
+                dictCancelUpload: "لغو",
+                dictUploadCanceled: "آپلود لغو شد",
+                dictInvalidFileType: "نوع فایل مجاز نیست",
+                dictFileTooBig: "فایل خیلی بزرگ است",
+                dictMaxFilesExceeded: "تعداد فایل‌ها بیش از حد مجاز است",
+                dictAddMoreFiles: "فایل‌های بیشتری اضافه کنید",
+                dictResponseError: "خطا در آپلود فایل",
+                dictRemoveFileConfirmation: "آیا مطمئن هستید که می‌خواهید این فایل را حذف کنید؟",
+                
+                // تنظیمات پیشرفته
+                createImageThumbnails: true,
+                thumbnailWidth: 120,
+                thumbnailHeight: 120,
+                resize: function(file) {
+                    return { width: 120, height: 120 };
+                },
+                
+                init: function() {
+                    const dropzoneInstance = this;
+                    
+                    // اضافه شدن فایل
+                    this.on("addedfile", function(file) {
+                        document.getElementById('uploadBtn').disabled = false;
+                        updateFileCount();
+                        console.log('فایل اضافه شد:', file.name);
+                    });
+                    
+                    // حذف فایل
+                    this.on("removedfile", function(file) {
+                        updateFileCount();
+                        if (this.files.length === 0) {
+                        document.getElementById('uploadBtn').disabled = true;
+                        }
+                        console.log('فایل حذف شد:', file.name);
+                    });
+                    
+                    // شروع آپلود
+                    this.on("sending", function(file, xhr, formData) {
+                        // اضافه کردن اطلاعات فرم
+                        const category = document.getElementById('fileCategory').value;
+                        const altText = document.getElementById('altText').value;
+                        
+                        formData.append('category', category);
+                        formData.append('alt_text', altText);
+                        
+                        // نمایش progress bar
+                        const progressBar = file.previewElement.querySelector('.dz-progress');
+                        if (progressBar) {
+                            progressBar.style.display = 'block';
+                        }
+                        
+                        console.log('شروع آپلود:', file.name);
+                    });
+                    
+                    // پیشرفت آپلود
+                    this.on("uploadprogress", function(file, progress, bytesSent) {
+                        const progressBar = file.previewElement.querySelector('.dz-progress-bar');
+                        if (progressBar) {
+                            progressBar.style.width = progress + '%';
+                        }
+                        console.log('پیشرفت آپلود:', file.name, progress + '%');
+                    });
+                    
+                    // موفقیت آپلود
+                    this.on("success", function(file, response) {
+                        const progressBar = file.previewElement.querySelector('.dz-progress');
+                        if (progressBar) {
+                            progressBar.style.display = 'none';
+                        }
+                        
+                        // اضافه کردن علامت موفقیت
+                        const successIcon = file.previewElement.querySelector('.dz-success-mark');
+                        if (successIcon) {
+                            successIcon.style.display = 'block';
+                        }
+                        
+                        console.log('آپلود موفق:', file.name, response);
+                    });
+                    
+                    // خطا در آپلود
+                    this.on("error", function(file, errorMessage, xhr) {
+                        const progressBar = file.previewElement.querySelector('.dz-progress');
+                        if (progressBar) {
+                            progressBar.style.display = 'none';
+                        }
+                        
+                        // اضافه کردن علامت خطا
+                        const errorIcon = file.previewElement.querySelector('.dz-error-mark');
+                        if (errorIcon) {
+                            errorIcon.style.display = 'block';
+                        }
+                        
+                        console.error('خطا در آپلود:', file.name, errorMessage);
+                        showNotification(`خطا در آپلود ${file.name}: ${errorMessage}`, 'error');
+                    });
+                    
+                    // تکمیل آپلود همه فایل‌ها
+                    this.on("queuecomplete", function() {
+                        console.log('آپلود همه فایل‌ها تکمیل شد');
+                        
+                        // بازگردانی دکمه آپلود
+                        const uploadBtn = document.getElementById('uploadBtn');
+                        uploadBtn.disabled = false;
+                        uploadBtn.innerHTML = '<i class="fas fa-upload"></i> آپلود فایل‌ها';
+                        
+                        // نمایش پیام موفقیت
+                        showNotification('آپلود فایل‌ها تکمیل شد', 'success');
+                        
+                        // بستن مودال و بارگذاری مجدد
+                        setTimeout(() => {
+                            closeUploadModal();
+                            loadFiles();
+                        }, 1000);
+                    });
+            }
+        });
+                
+                dropzoneInitialized = true;
+                console.log('Dropzone initialized successfully');
+                
+            } catch (error) {
+                console.error('Error initializing Dropzone:', error);
+                initializeFallbackUpload();
+            }
+        }
+
+        function initializeFallbackUpload() {
+            console.log('Using fallback file upload');
+            
+            // تغییر HTML dropzone به input file معمولی
+            const dropzoneElement = document.getElementById('dropzone');
+            dropzoneElement.innerHTML = `
+                <div class="fallback-upload">
+                    <input type="file" id="fileInput" multiple accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.mp4,.mp3,.wav,.zip,.rar,.7z,.tar,.gz">
+                    <div class="fallback-upload-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>برای انتخاب فایل‌ها کلیک کنید</p>
+                        <p class="fallback-info">بدون محدودیت حجم و تعداد</p>
+                    </div>
+                </div>
+            `;
+            
+            // اضافه کردن event listener
+            const fileInput = document.getElementById('fileInput');
+            fileInput.addEventListener('change', function(e) {
+                handleFileSelection(e.target.files);
+            });
+            
+            // کلیک روی dropzone برای باز کردن file dialog
+            dropzoneElement.addEventListener('click', function() {
+                fileInput.click();
+            });
+        }
+
+        function handleFileSelection(files) {
+            if (files.length === 0) return;
+            
+            // نمایش فایل‌های انتخاب شده
+            const previewsContainer = document.getElementById('dropzone-previews');
+            previewsContainer.innerHTML = '';
+            
+            Array.from(files).forEach((file, index) => {
+                const preview = document.createElement('div');
+                preview.className = 'dz-preview fallback-preview';
+                preview.innerHTML = `
+                    <div class="dz-image">
+                        <i class="fas fa-file"></i>
+                    </div>
+                    <div class="dz-details">
+                        <div class="dz-filename">${file.name}</div>
+                        <div class="dz-size">${formatFileSize(file.size)}</div>
+                    </div>
+                    <button class="dz-remove" onclick="removeFile(${index})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                previewsContainer.appendChild(preview);
+            });
+            
+            // فعال کردن دکمه آپلود
+            document.getElementById('uploadBtn').disabled = false;
+            updateFileCount();
+        }
+
+        function removeFile(index) {
+            // این تابع باید فایل را از لیست حذف کند
+            // برای سادگی، همه فایل‌ها را دوباره بارگذاری می‌کنیم
+            const fileInput = document.getElementById('fileInput');
+            fileInput.value = '';
+            document.getElementById('dropzone-previews').innerHTML = '';
+            document.getElementById('uploadBtn').disabled = true;
+            updateFileCount();
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        async function loadCategories() {
+            try {
+                const response = await fetch('http://localhost:3000/api/files/categories');
+                const data = await response.json();
+                
+                if (data.success) {
+                    categories = data.data;
+                    renderCategories();
+                }
+            } catch (error) {
+                console.error('Error loading categories:', error);
+                showNotification('خطا در بارگذاری دسته‌بندی‌ها', 'error');
+            }
+        }
+
+        function renderCategories() {
+            const grid = document.getElementById('fileCategoriesGrid');
+            grid.innerHTML = '';
+            
+            categories.forEach(category => {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'file-category-card';
+                categoryCard.onclick = () => filterByCategory(category.value);
+                
+                categoryCard.innerHTML = `
+                    <div class="category-icon">
+                        <i class="${category.icon}"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>${category.label}</h3>
+                        <p>مدیریت فایل‌های ${category.label}</p>
+                    </div>
+                `;
+                
+                grid.appendChild(categoryCard);
+            });
+        }
+
+        async function loadFiles() {
+            showLoading();
+            
+            try {
+                const category = currentCategory;
+                const fileType = document.getElementById('fileTypeFilter').value;
+                const search = document.getElementById('searchFiles').value;
+                
+                let url = 'http://localhost:3000/api/files?';
+                const params = new URLSearchParams();
+                
+                if (category) params.append('category', category);
+                if (fileType) params.append('file_type', fileType);
+                if (search) params.append('search', search);
+                
+                url += params.toString();
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.success) {
+                    files = data.data.files;
+                    renderFiles();
+                    updateCurrentCategoryName();
+                }
+            } catch (error) {
+                console.error('Error loading files:', error);
+                showNotification('خطا در بارگذاری فایل‌ها', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function renderFiles() {
+            const tableBody = document.getElementById('filesTableBody');
+            tableBody.innerHTML = '';
+            
+            if (files.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="no-data">
+                            <i class="fas fa-folder-open"></i>
+                            <p>هیچ فایلی یافت نشد</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            files.forEach(file => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="file-info">
+                            <div class="file-icon">
+                                ${file.file_type === 'image' ? 
+                                    `<img src="https://files.iranche.com/${file.storage_path}" alt="${file.original_name}" class="file-preview" onclick="showImagePreview('https://files.iranche.com/${file.storage_path}', '${file.original_name}')" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                     <i class="fas fa-${getFileIcon(file.file_type)}" style="display: none;"></i>` :
+                                    `<i class="fas fa-${getFileIcon(file.file_type)}"></i>`
+                                }
+                            </div>
+                            <div class="file-details">
+                                <span class="file-name">${file.original_name}</span>
+                                <span class="file-extension">${file.extension}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="file-type-badge ${file.file_type}">
+                            ${getFileTypeLabel(file.file_type)}
+                        </span>
+                    </td>
+                    <td>${file.file_size_formatted}</td>
+                    <td>
+                        <span class="category-badge">${getCategoryLabel(file.category)}</span>
+                    </td>
+                    <td>${file.uploaded_by}</td>
+                    <td>${file.created_at_formatted}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon" onclick="downloadFile(${file.id})" title="دانلود">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="btn-icon" onclick="deleteFile(${file.id})" title="حذف">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function filterByCategory(category) {
+            currentCategory = category;
+            loadFiles();
+        }
+
+        function updateCurrentCategoryName() {
+            const categoryName = currentCategory ? 
+                categories.find(c => c.value === currentCategory)?.label || 'نامشخص' : 
+                'همه دسته‌ها';
+            document.getElementById('currentCategoryName').textContent = categoryName;
+        }
+
+        function showUploadModal() {
+            document.getElementById('uploadModal').style.display = 'flex';
+            document.getElementById('uploadForm').reset();
+            document.getElementById('uploadBtn').disabled = true;
+            if (dropzone) {
+                dropzone.removeAllFiles();
+            }
+            updateFileCount();
+        }
+
+        function updateFileCount() {
+            let fileCount = 0;
+            
+            if (dropzone && dropzone.files) {
+                fileCount = dropzone.files.length;
+            } else {
+                const fileInput = document.getElementById('fileInput');
+                if (fileInput && fileInput.files) {
+                    fileCount = fileInput.files.length;
+                }
+            }
+            
+            const fileCountText = document.getElementById('file-count-text');
+            if (fileCountText) {
+                fileCountText.textContent = `${fileCount} فایل انتخاب شده`;
+            }
+        }
+
+        function closeUploadModal() {
+            document.getElementById('uploadModal').style.display = 'none';
+            if (dropzone) {
+                dropzone.removeAllFiles();
+            }
+            updateFileCount();
+            
+            // Reset dropzone flag when modal closes
+            dropzoneInitialized = false;
+        }
+
+        function uploadFile() {
+            const category = document.getElementById('fileCategory').value;
+            const altText = document.getElementById('altText').value;
+            
+            if (!category) {
+                showNotification('لطفاً دسته‌بندی را انتخاب کنید', 'error');
+                return;
+            }
+            
+            // بررسی وجود فایل‌ها
+            let files = [];
+            if (dropzone && dropzone.files) {
+                files = dropzone.files;
+            } else {
+                const fileInput = document.getElementById('fileInput');
+                if (fileInput && fileInput.files) {
+                    files = Array.from(fileInput.files);
+                }
+            }
+            
+            if (files.length === 0) {
+                showNotification('لطفاً فایلی انتخاب کنید', 'error');
+                return;
+            }
+            
+            // غیرفعال کردن دکمه آپلود
+            const uploadBtn = document.getElementById('uploadBtn');
+            uploadBtn.disabled = true;
+            uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال آپلود...';
+            
+            // اگر Dropzone موجود است، از آن استفاده کن
+            if (dropzone && typeof dropzone.processQueue === 'function') {
+                dropzone.processQueue();
+            } else {
+                // در غیر این صورت از fallback استفاده کن
+                uploadFilesFallback(files, category, altText);
+            }
+        }
+
+        async function uploadFilesFallback(files, category, altText) {
+            let successCount = 0;
+            let errorCount = 0;
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const formData = new FormData();
+            
+            formData.append('category', category);
+            formData.append('alt_text', altText);
+                formData.append('file', file);
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/files/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                        successCount++;
+                    } else {
+                        errorCount++;
+                        console.error('Upload error for file:', file.name, result.message);
+                    }
+                } catch (error) {
+                    errorCount++;
+                    console.error('Error uploading file:', file.name, error);
+                }
+            }
+            
+            // نمایش نتیجه
+            if (successCount > 0 && errorCount === 0) {
+                showNotification(`${successCount} فایل با موفقیت آپلود شد`, 'success');
+                closeUploadModal();
+                loadFiles();
+            } else if (successCount > 0 && errorCount > 0) {
+                showNotification(`${successCount} فایل آپلود شد، ${errorCount} فایل خطا داشت`, 'warning');
+                    closeUploadModal();
+                    loadFiles();
+                } else {
+                showNotification('خطا در آپلود فایل‌ها', 'error');
+            }
+            
+            // بازگردانی دکمه آپلود
+            const uploadBtn = document.getElementById('uploadBtn');
+            uploadBtn.disabled = false;
+            uploadBtn.innerHTML = '<i class="fas fa-upload"></i> آپلود فایل‌ها';
+        }
+
+        function deleteFile(id) {
+            const file = files.find(f => f.id === id);
+            if (file) {
+                currentDeletingFile = file;
+                document.getElementById('deleteFileModal').style.display = 'flex';
+            }
+        }
+
+        function closeDeleteFileModal() {
+            document.getElementById('deleteFileModal').style.display = 'none';
+            currentDeletingFile = null;
+        }
+
+        async function confirmDeleteFile() {
+            if (currentDeletingFile) {
+                try {
+                    const response = await fetch(`http://localhost:3000/api/files/${currentDeletingFile.id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        showNotification('فایل با موفقیت حذف شد', 'success');
+                        closeDeleteFileModal();
+                        loadFiles();
+                    } else {
+                        showNotification(result.message || 'خطا در حذف فایل', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error deleting file:', error);
+                    showNotification('خطا در حذف فایل', 'error');
+                }
+            }
+        }
+
+        function downloadFile(id) {
+            // Download file from server
+            const downloadUrl = `http://localhost:3000/api/files/download/${id}`;
+            window.open(downloadUrl, '_blank');
+        }
+
+        function showImagePreview(imageSrc, fileName) {
+            const modal = document.createElement('div');
+            modal.className = 'image-preview-modal';
+            modal.innerHTML = `
+                <div class="modal-backdrop" onclick="closeImagePreview()"></div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>${fileName}</h3>
+                        <button class="close-btn" onclick="closeImagePreview()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="${imageSrc}" alt="${fileName}" class="preview-image">
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function closeImagePreview() {
+            const modal = document.querySelector('.image-preview-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // Helper functions
+        function getFileIcon(fileType) {
+            const icons = {
+                'image': 'image',
+                'document': 'file-alt',
+                'video': 'video',
+                'audio': 'music',
+                'archive': 'archive',
+                'other': 'file'
+            };
+            return icons[fileType] || 'file';
+        }
+
+        function getFileTypeLabel(fileType) {
+            const labels = {
+                'image': 'تصویر',
+                'document': 'سند',
+                'video': 'ویدیو',
+                'audio': 'صوت',
+                'archive': 'آرشیو',
+                'other': 'سایر'
+            };
+            return labels[fileType] || 'نامشخص';
+        }
+
+        function getCategoryLabel(category) {
+            const categoryObj = categories.find(c => c.value === category);
+            return categoryObj ? categoryObj.label : 'نامشخص';
+        }
+
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'times' : 'info'}-circle"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+    <script src="js/common.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/load-sidebar.js"></script>
+    <script src="js/sidebar.js"></script>
+</body>
+</html>

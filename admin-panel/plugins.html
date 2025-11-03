@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت افزونه‌ها - پنل مدیریت ایرانچه</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">مدیریت افزونه‌ها</h1>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <section class="content-section active">
+                    <div class="section-header">
+                        <h2>آپلود و مدیریت افزونه‌ها</h2>
+                        <div>
+                            <a class="btn btn-outline" href="plugin-categories.html">
+                                <i class="fas fa-tags"></i>
+                                دسته‌های افزونه
+                            </a>
+                            <button class="btn btn-primary" id="openAddPluginModal">
+                                <i class="fas fa-plus"></i>
+                                افزودن افزونه جدید
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>لیست افزونه‌ها</h3>
+                            <div class="table-filters">
+                                <select id="pluginStatusFilter" class="filter-select">
+                                    <option value="all">همه وضعیت‌ها</option>
+                                    <option value="active">فعال</option>
+                                    <option value="inactive">غیرفعال</option>
+                                </select>
+                                <input type="text" id="pluginSearch" class="search-input" placeholder="جستجوی نام افزونه...">
+                            </div>
+                        </div>
+                        <table class="data-table" id="pluginsTable">
+                            <thead>
+                                <tr>
+                                    <th>نام</th>
+                                    <th>نسخه</th>
+                                    <th>قیمت</th>
+                                    <th>وضعیت</th>
+                                    <th>تاریخ ایجاد</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pluginsTableBody">
+                                <tr class="no-data">
+                                    <td colspan="6">
+                                        <i class="fas fa-plug"></i>
+                                        <p>هنوز افزونه‌ای ثبت نشده است</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">افزودن افزونه</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <form id="addPluginForm" class="upload-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pluginName">نام افزونه</label>
+                            <input type="text" id="pluginName" placeholder="مثلاً Payment Gateway" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pluginVersion">نسخه</label>
+                            <input type="text" id="pluginVersion" placeholder="مثلاً 1.0.0" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pluginSlug">نامک (slug)</label>
+                            <input type="text" id="pluginSlug" placeholder="مثلاً payment-gateway" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pluginAuthor">نویسنده</label>
+                            <input type="text" id="pluginAuthor" placeholder="اختیاری">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pluginCategory">دسته افزونه</label>
+                            <select id="pluginCategory">
+                                <option value="">انتخاب دسته</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pluginPrice">قیمت (تومان)</label>
+                            <input type="number" id="pluginPrice" min="0" step="1000" placeholder="0 برای رایگان">
+                        </div>
+                        <div class="form-group" style="display:flex;align-items:center;gap:8px;">
+                            <label for="pluginIsFree">رایگان</label>
+                            <input type="checkbox" id="pluginIsFree">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pluginDescription">توضیحات</label>
+                        <textarea id="pluginDescription" placeholder="توضیحات کامل افزونه"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>آپلود بنر افزونه</label>
+                        <div id="pluginBannerDropzone" class="dropzone">
+                            <div class="dropzone-content">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>فایل بنر را اینجا رها کنید یا کلیک کنید</p>
+                                <p class="dropzone-info">حداکثر 2MB - فرمت‌های مجاز: jpg, png, webp</p>
+                            </div>
+                        </div>
+                        <div id="pluginBannerPreviews" class="dropzone-previews"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>آپلود فایل افزونه (zip)</label>
+                        <div id="pluginFileDropzone" class="dropzone">
+                            <div class="dropzone-content">
+                                <i class="fas fa-file-archive"></i>
+                                <p>فایل zip افزونه را اینجا رها کنید یا کلیک کنید</p>
+                                <p class="dropzone-info">حداکثر 20MB</p>
+                            </div>
+                        </div>
+                        <div id="pluginFilePreviews" class="dropzone-previews"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeModal()">انصراف</button>
+                        <button type="submit" class="btn btn-primary">ذخیره افزونه</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>در حال بارگذاری...</p>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/load-sidebar.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/vendors/dropzone/dropzone.js"></script>
+    <script src="js/file-picker.js"></script>
+    <script src="js/plugins.js"></script>
+</body>
+</html>
+
+

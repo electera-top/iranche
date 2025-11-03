@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود مدیر - ایرانچه</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="content-area" style="max-width:420px;margin:10vh auto;">
+        <div class="table-container" style="padding:24px;">
+            <h2 style="color:#fff;margin-bottom:16px;">ورود مدیر</h2>
+            <form id="loginForm" class="settings-form">
+                <div class="form-group">
+                    <label>نام کاربری</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label>رمز عبور</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-actions" style="justify-content:flex-start;">
+                    <button type="submit" class="btn btn-primary" id="loginBtn">ورود</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>در حال بارگذاری...</p>
+        </div>
+    </div>
+
+    <script>
+    (function(){
+        const API = 'http://localhost:3000/api/auth/login';
+        document.getElementById('loginForm').addEventListener('submit', async function(e){
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            btn.disabled = true;
+            try {
+                const res = await fetch(API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: document.getElementById('username').value.trim(),
+                        password: document.getElementById('password').value
+                    })
+                });
+                const data = await res.json();
+                if (!res.ok || !data.success) throw new Error(data.message || 'ورود ناموفق');
+                localStorage.setItem('ADMIN_TOKEN', data.token);
+                window.location.href = 'index.html';
+            } catch (err) {
+                alert('خطا: ' + (err.message || 'ورود ناموفق'));
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
+
+

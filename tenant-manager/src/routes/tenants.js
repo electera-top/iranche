@@ -29,6 +29,7 @@ const createTenantSchema = Joi.object({
   owner_phone: Joi.string().max(20).optional(),
   admin_password: Joi.string().min(6).max(50).required(),
   plan_type: Joi.string().valid('free', 'basic', 'premium', 'enterprise').default('free'),
+  plan_id: Joi.number().integer().allow(null).optional(),
   theme: Joi.string().max(100).default('default'),
   plugins: Joi.array().items(Joi.string()).default([])
 });
@@ -40,6 +41,7 @@ const updateTenantSchema = Joi.object({
   owner_email: Joi.string().email().optional(),
   owner_phone: Joi.string().max(20).optional(),
   plan_type: Joi.string().valid('free', 'basic', 'premium', 'enterprise').optional(),
+  plan_id: Joi.number().integer().allow(null).optional(),
   theme: Joi.string().max(100).optional(),
   plugins: Joi.array().items(Joi.string()).optional(),
   status: Joi.string().valid('active', 'inactive', 'suspended').optional()
@@ -120,12 +122,12 @@ router.post('/', async (req, res) => {
     const insertResult = await executeQuery(
       `INSERT INTO tenants (
         subdomain, shop_name, shop_description, owner_name, owner_email, owner_phone,
-        database_name, database_user, database_password, plan_type, theme, plugins,
+        database_name, database_user, database_password, plan_type, plan_id, theme, plugins,
         admin_username, admin_password, admin_email, status
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         subdomain, shop_name, finalShopDescription, owner_name, owner_email, finalOwnerPhone,
-        databaseName, databaseUser, databasePassword, finalPlanType, finalTheme, JSON.stringify(finalPlugins),
+        databaseName, databaseUser, databasePassword, finalPlanType, value.plan_id || null, finalTheme, JSON.stringify(finalPlugins),
         adminUsername, hashedAdminPassword, owner_email, 'pending'
       ]
     );
@@ -160,13 +162,9 @@ router.post('/', async (req, res) => {
     });
     console.log(`WordPress installation completed for tenant: ${subdomain}`);
 
-    // Clear cache (with error handling)
-    try {
-      await cache.del(`tenant:${subdomain}`);
-      await cache.del('tenants:list');
-    } catch (cacheError) {
-      console.log('Cache clear failed (non-critical):', cacheError.message);
-    }
+    // Clear cache
+    await cache.del(`tenant:${subdomain}`);
+    await cache.del('tenants:list');
 
     // Return success response
     res.status(201).json({
@@ -205,37 +203,38 @@ router.get('/', async (req, res) => {
     let params = [];
 
     if (status) {
-      whereClause += ' WHERE status = ?';
+      whereClause += ' WHERE t.status = ?';
       params.push(status);
     }
 
     if (search) {
-      const searchClause = ' WHERE (subdomain LIKE ? OR shop_name LIKE ? OR owner_name LIKE ? OR owner_email LIKE ?)';
       const searchParam = `%${search}%`;
-      
       if (whereClause) {
-        whereClause += ' AND (subdomain LIKE ? OR shop_name LIKE ? OR owner_name LIKE ? OR owner_email LIKE ?)';
+        whereClause += ' AND (t.subdomain LIKE ? OR t.shop_name LIKE ? OR t.owner_name LIKE ? OR t.owner_email LIKE ?)';
       } else {
-        whereClause = searchClause;
+        whereClause = ' WHERE (t.subdomain LIKE ? OR t.shop_name LIKE ? OR t.owner_name LIKE ? OR t.owner_email LIKE ?)';
       }
       params.push(searchParam, searchParam, searchParam, searchParam);
     }
-
+    
     // Get total count
     const countResult = await executeQuery(
-      `SELECT COUNT(*) as total FROM tenants${whereClause}`,
+      `SELECT COUNT(*) as total FROM tenants t${whereClause}`,
       params
     );
     const total = countResult[0].total;
 
-    // Get tenants
+    // Get tenants with plan info
     const tenants = await executeQuery(
       `SELECT 
-        id, subdomain, shop_name, shop_description, owner_name, owner_email, owner_phone,
-        status, plan_type, created_at, updated_at,
-        theme, plugins
-      FROM tenants${whereClause}
-      ORDER BY created_at DESC
+        t.id, t.subdomain, t.shop_name, t.shop_description, t.owner_name, t.owner_email, t.owner_phone,
+        t.status, t.plan_type, t.plan_id, t.created_at, t.updated_at, t.expires_at,
+        t.theme, t.plugins, t.storage_limit, t.storage_used,
+        p.name AS plan_name, p.type AS plan_type_name, p.duration AS plan_duration, p.storage_gb AS plan_storage_gb, p.price AS plan_price
+      FROM tenants t
+      LEFT JOIN plans p ON p.id = t.plan_id
+      ${whereClause}
+      ORDER BY t.created_at DESC
       LIMIT ${Number(limit)} OFFSET ${Number(offset)}`,
       params
     );
@@ -283,10 +282,13 @@ router.get('/:id', async (req, res) => {
 
     const tenants = await executeQuery(
       `SELECT 
-        id, subdomain, shop_name, shop_description, owner_name, owner_email, owner_phone,
-        status, plan_type, created_at, updated_at,
-        theme, plugins
-      FROM tenants WHERE id = ?`,
+        t.id, t.subdomain, t.shop_name, t.shop_description, t.owner_name, t.owner_email, t.owner_phone,
+        t.status, t.plan_type, t.plan_id, t.created_at, t.updated_at, t.expires_at,
+        t.theme, t.plugins, t.storage_limit, t.storage_used,
+        p.name AS plan_name, p.type AS plan_type_name, p.duration AS plan_duration, p.storage_gb AS plan_storage_gb, p.price AS plan_price
+      FROM tenants t
+      LEFT JOIN plans p ON p.id = t.plan_id
+      WHERE t.id = ?`,
       [tenantId]
     );
 
@@ -335,10 +337,13 @@ router.get('/subdomain/:subdomain', async (req, res) => {
 
     const tenants = await executeQuery(
       `SELECT 
-        id, subdomain, shop_name, shop_description, owner_name, owner_email, owner_phone,
-        status, plan_type, created_at, updated_at,
-        theme, plugins
-      FROM tenants WHERE subdomain = ?`,
+        t.id, t.subdomain, t.shop_name, t.shop_description, t.owner_name, t.owner_email, t.owner_phone,
+        t.status, t.plan_type, t.plan_id, t.created_at, t.updated_at, t.expires_at,
+        t.theme, t.plugins, t.storage_limit, t.storage_used,
+        p.name AS plan_name, p.type AS plan_type_name, p.duration AS plan_duration, p.storage_gb AS plan_storage_gb, p.price AS plan_price
+      FROM tenants t
+      LEFT JOIN plans p ON p.id = t.plan_id
+      WHERE t.subdomain = ?`,
       [subdomain]
     );
 

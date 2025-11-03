@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت پلن‌ها - پنل مدیریت ایرانچه</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <div id="sidebar-container"></div>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">مدیریت پلن‌ها</h1>
+                </div>
+                <div class="header-right">
+                    <button class="btn-primary" id="openAddPlanModal">
+                        <i class="fas fa-plus"></i> افزودن پلن
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <section class="content-section active">
+                    <div class="section-header">
+                        <div class="filters-section">
+                            <div class="filter-group">
+                                <select id="typeFilter" class="filter-select">
+                                    <option value="">همه انواع</option>
+                                    <option value="normal">معمولی</option>
+                                    <option value="special">ویژه</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <select id="durationFilter" class="filter-select">
+                                    <option value="">همه مدت‌ها</option>
+                                    <option value="monthly">ماهانه</option>
+                                    <option value="quarterly">سه‌ماهه</option>
+                                    <option value="semiannual">شش‌ماهه</option>
+                                    <option value="yearly">سالانه</option>
+                                </select>
+                            </div>
+                            <button class="btn-secondary" id="applyFilters">
+                                <i class="fas fa-filter"></i> فیلتر
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>نام پلن</th>
+                                    <th>نوع</th>
+                                    <th>مدت زمان</th>
+                                    <th>حجم (GB)</th>
+                                    <th>قیمت</th>
+                                    <th>متراژ</th>
+                                    <th>کاربران</th>
+                                    <th>وضعیت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="plansTableBody">
+                                <tr><td colspan="9"><div class="loading-spinner"></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Add/Edit Plan -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">افزودن پلن جدید</h2>
+                <button class="modal-close" onclick="window.closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="addPlanForm" class="modal-body">
+                <input type="hidden" id="planId">
+                <div class="form-group">
+                    <label>نام پلن <span class="required">*</span></label>
+                    <input type="text" id="planName" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>نوع پلن <span class="required">*</span></label>
+                        <select id="planType" required>
+                            <option value="normal">معمولی</option>
+                            <option value="special">ویژه</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>مدت زمان <span class="required">*</span></label>
+                        <select id="planDuration" required>
+                            <option value="monthly">ماهانه</option>
+                            <option value="quarterly">سه‌ماهه</option>
+                            <option value="semiannual">شش‌ماهه</option>
+                            <option value="yearly">سالانه</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>حجم پلن (گیگابایت) <span class="required">*</span></label>
+                        <input type="number" id="planStorageGb" required min="0.1" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label>قیمت (تومان) <span class="required">*</span></label>
+                        <input type="number" id="planPrice" required min="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>توضیحات</label>
+                    <textarea id="planDescription" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>متراژ فروشگاه (متر مربع) <span class="required">*</span></label>
+                        <input type="number" id="planShopArea" min="0" step="0.1" required>
+                        <small>متراژ فروشگاه به متر مربع</small>
+                    </div>
+                    <div class="form-group">
+                        <label>حداکثر کاربران (0 = نامحدود)</label>
+                        <input type="number" id="planMaxUsers" min="0" value="0">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>وضعیت</label>
+                        <select id="planIsActive">
+                            <option value="true">فعال</option>
+                            <option value="false">غیرفعال</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>ترتیب نمایش</label>
+                        <input type="number" id="planSortOrder" min="0" value="0">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="window.closeModal()">لغو</button>
+                    <button type="submit" class="btn-primary">ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/load-sidebar.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/plans.js"></script>
+</body>
+</html>
+

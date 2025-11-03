@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 const dbConfig = {
   host: process.env.DB_HOST || 'main-db',
   user: process.env.DB_USER || 'shop_user',
-  password: process.env.DB_PASSWORD || 'your_secure_password',
+  password: process.env.DB_PASSWORD || 'shop_password_123',
   database: process.env.DB_NAME || 'shop_management',
   waitForConnections: true,
   connectionLimit: 10,

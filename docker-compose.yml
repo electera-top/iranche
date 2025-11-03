@@ -89,9 +89,18 @@ services:
       - REDIS_URL=redis://redis:6379
       - JWT_SECRET=${JWT_SECRET}
       - DOMAIN=${MAIN_DOMAIN}
+      - ADMIN_TOKEN=${ADMIN_TOKEN}
+      - THEMES_DEMO_PATH=/var/www/themes
+      - THEME_DEMO_BASE=http://themes.localhost
     volumes:
       - ./tenants:/app/tenants
       - ./shared-services:/app/shared-services
+      - ./tenant-manager/src:/app/src
+      - ./shared-database:/app/shared-database
+      - ./themes-demo:/app/themes-demo
+      - ./themes-demo:/var/www/themes
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Using image-baked node_modules; do not override in container
     depends_on:
       - main-db
       - redis
@@ -114,6 +123,7 @@ services:
     volumes:
       - ./wordpress-core:/var/www/html
       - ./tenants:/var/www/tenants
+      - ./themes-demo:/var/www/themes
     networks:
       - shop_network
 
@@ -201,10 +211,12 @@ services:
       - "80:80"
       - "443:443"
     volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/sites-available:/etc/nginx/sites-available
       - ./nginx/ssl:/etc/nginx/ssl
       - ./tenants:/var/www/tenants
       - ./admin-panel:/var/www/admin-panel
+      - ./themes-demo:/var/www/themes
     depends_on:
       - tenant-manager
       - wordpress-core

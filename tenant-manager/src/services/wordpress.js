@@ -72,6 +72,12 @@ const installWordPressForTenant = async (tenantConfig) => {
     await execAsync(`cd ${tenantDir} && wp --skip-themes plugin activate bitpayir-woocommerce2 --allow-root`);
     console.log('bitpayir plugin installed and activated.');
 
+    // Install iranche-shop-manager plugin from local directory
+    console.log('Installing iranche-shop-manager plugin...');
+    await execAsync(`cp -r /app/shared-services/plugins/iranche-shop-manager ${tenantDir}/wp-content/plugins/`);
+    await execAsync(`cd ${tenantDir} && wp --skip-themes plugin activate iranche-shop-manager --allow-root`);
+    console.log('iranche-shop-manager plugin installed and activated.');
+
     // Configure upload quotas via MU-plugin (simplified)
     const muDir = `${tenantDir}/wp-content/mu-plugins`;
     await execAsync(`mkdir -p ${muDir}`);
@@ -190,6 +196,12 @@ define( 'WP_DEBUG_DISPLAY', false );
 
 define( 'WP_HOME', 'http://${subdomain}.localhost' );
 define( 'WP_SITEURL', 'http://${subdomain}.localhost' );
+
+// Iranche Shop Manager Database Configuration
+define( 'IRANCHE_MAIN_DB_HOST', '${process.env.WORDPRESS_DB_HOST || 'main-db'}' );
+define( 'IRANCHE_MAIN_DB_NAME', 'shop_management' );
+define( 'IRANCHE_MAIN_DB_USER', '${process.env.MYSQL_USER || 'shop_user'}' );
+define( 'IRANCHE_MAIN_DB_PASSWORD', '${process.env.MYSQL_PASSWORD || 'shop_password_123'}' );
 
 $table_prefix = 'wp_';
 

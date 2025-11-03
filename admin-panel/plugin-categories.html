@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>دسته‌های افزونه‌ها - پنل مدیریت ایرانچه</title>
+	<link rel="stylesheet" href="css/styles.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="admin-container">
+		<div id="sidebar-container"></div>
+
+		<main class="main-content">
+			<header class="top-header">
+				<div class="header-left">
+					<button class="mobile-menu-toggle" id="mobileMenuToggle">
+						<i class="fas fa-bars"></i>
+					</button>
+					<h1 class="page-title">دسته‌های افزونه‌ها</h1>
+				</div>
+			</header>
+
+			<div class="content-area">
+				<section class="content-section active">
+					<div class="section-header">
+						<h2>مدیریت دسته‌ها</h2>
+						<div>
+							<a class="btn btn-outline" href="plugins.html">
+								<i class="fas fa-plug"></i>
+								بازگشت به افزونه‌ها
+							</a>
+							<button class="btn btn-primary" id="openAddCatModal">
+								<i class="fas fa-plus"></i>
+								افزودن دسته جدید
+							</button>
+						</div>
+					</div>
+
+					<div class="table-container">
+						<div class="table-header">
+							<h3>لیست دسته‌ها</h3>
+							<div class="table-filters">
+								<input type="text" id="catSearch" class="search-input" placeholder="جستجوی نام دسته...">
+							</div>
+						</div>
+						<table class="data-table" id="catsTable">
+							<thead>
+								<tr>
+									<th>نام</th>
+									<th>نامک</th>
+									<th>والد</th>
+									<th>توضیحات</th>
+									<th>عملیات</th>
+								</tr>
+							</thead>
+							<tbody id="catsTableBody">
+								<tr class="no-data">
+									<td colspan="5">
+										<i class="fas fa-tags"></i>
+										<p>هنوز دسته‌ای ثبت نشده است</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+			</div>
+		</main>
+	</div>
+
+	<!-- Modal -->
+	<div id="modalOverlay" class="modal-overlay">
+		<div class="modal" id="modal">
+			<div class="modal-header">
+				<h3 id="modalTitle">افزودن دسته افزونه</h3>
+				<button class="modal-close" onclick="closeModal()">
+					<i class="fas fa-times"></i>
+				</button>
+			</div>
+			<div class="modal-body" id="modalBody">
+				<form id="catForm" class="upload-form">
+					<div class="form-row">
+						<div class="form-group">
+							<label for="catName">نام دسته</label>
+							<input type="text" id="catName" required>
+						</div>
+						<div class="form-group">
+							<label for="catSlug">نامک (slug)</label>
+							<input type="text" id="catSlug" required>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label for="catParent">والد</label>
+							<select id="catParent">
+								<option value="">بدون والد</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="catDesc">توضیحات</label>
+						<textarea id="catDesc" placeholder="اختیاری"></textarea>
+					</div>
+					<div class="form-actions">
+						<button type="button" class="btn btn-outline" onclick="closeModal()">انصراف</button>
+						<button type="submit" class="btn btn-primary">ذخیره دسته</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div id="loadingOverlay" class="loading-overlay">
+		<div class="loading-spinner">
+			<i class="fas fa-spinner fa-spin"></i>
+			<p>در حال بارگذاری...</p>
+		</div>
+	</div>
+
+	<script src="js/common.js"></script>
+	<script src="js/notifications.js"></script>
+	<script src="js/load-sidebar.js"></script>
+	<script src="js/sidebar.js"></script>
+	<script src="js/plugin-categories.js"></script>
+</body>
+</html>
+
+ 
+
+

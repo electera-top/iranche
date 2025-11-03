@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت فروشگاه‌ها - پنل مدیریت ایرانچه</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <div id="sidebar-container"></div>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">مدیریت فروشگاه‌ها</h1>
+                </div>
+                <div class="header-right">
+                    <button class="btn-primary" id="openAddTenantModal">
+                        <i class="fas fa-plus"></i> افزودن فروشگاه
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <section class="content-section active">
+                    <div class="section-header">
+                        <div class="filters-section">
+                            <div class="filter-group">
+                                <input type="text" id="searchTenants" placeholder="جستجوی فروشگاه..." class="filter-input">
+                            </div>
+                            <div class="filter-group">
+                                <select id="statusFilter" class="filter-select">
+                                    <option value="">همه وضعیت‌ها</option>
+                                    <option value="active">فعال</option>
+                                    <option value="inactive">غیرفعال</option>
+                                    <option value="suspended">مسدود</option>
+                                    <option value="pending">در انتظار</option>
+                                </select>
+                            </div>
+                            <button class="btn-secondary" id="applyFilters">
+                                <i class="fas fa-filter"></i> فیلتر
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>نام فروشگاه</th>
+                                    <th>زیردامنه</th>
+                                    <th>مالک</th>
+                                    <th>ایمیل</th>
+                                    <th>پلن</th>
+                                    <th>وضعیت</th>
+                                    <th>تاریخ ایجاد</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tenantsTableBody">
+                                <tr><td colspan="8"><div class="loading-spinner"></div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Add/Edit Tenant -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">افزودن فروشگاه جدید</h2>
+                <button class="modal-close" onclick="window.closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="addTenantForm" class="modal-body">
+                <input type="hidden" id="tenantId">
+                <div class="form-group">
+                    <label>نام فروشگاه <span class="required">*</span></label>
+                    <input type="text" id="tenantShopName" required>
+                </div>
+                <div class="form-group">
+                    <label>زیردامنه <span class="required">*</span></label>
+                    <input type="text" id="tenantSubdomain" required pattern="[a-z0-9-]+">
+                    <small>فقط حروف کوچک، اعداد و خط تیره مجاز است</small>
+                </div>
+                <div class="form-group">
+                    <label>توضیحات فروشگاه</label>
+                    <textarea id="tenantDescription" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>نام مالک <span class="required">*</span></label>
+                        <input type="text" id="tenantOwnerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ایمیل مالک <span class="required">*</span></label>
+                        <input type="email" id="tenantOwnerEmail" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>شماره تماس</label>
+                    <input type="text" id="tenantOwnerPhone">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>پلن</label>
+                        <select id="tenantPlanId">
+                            <option value="">بدون پلن</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>قالب</label>
+                        <select id="tenantThemeId">
+                            <option value="">انتخاب قالب</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>رمز عبور ادمین <span class="required">*</span></label>
+                    <input type="password" id="tenantAdminPassword" required minlength="6">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="window.closeModal()">لغو</button>
+                    <button type="submit" class="btn-primary">ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/load-sidebar.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/tenants.js"></script>
+</body>
+</html>
+

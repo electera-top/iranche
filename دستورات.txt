@@ -1,0 +1,4 @@
+اضافه کردن جداول جدید به دیتابیس
+docker cp shared-database\init\03_alter_themes_add_file_ids.sql shop_main_db:/tmp/03_alter_themes_add_file_ids.sql
+docker compose exec -T main-db sh -lc "mysql -ushop_user -pshop_password_123 < /tmp/03_alter_themes_add_file_ids.sql"
+docker compose exec -T main-db sh -lc "mysql -ushop_user -pshop_password_123 -e \"SHOW TABLES FROM shop_management LIKE 'themes'; SHOW TABLES FROM shop_management LIKE 'plugins';\""

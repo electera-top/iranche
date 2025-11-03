@@ -1,0 +1,75 @@
+<div id="filePickerModal" class="modal-overlay" style="display:none;">
+  <div class="modal" style="max-width:980px;width:96%;">
+    <div class="modal-header">
+      <h3>انتخاب فایل</h3>
+      <button class="modal-close" data-fp-close>
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="filters-section" style="margin-bottom:16px;">
+        <div class="filter-group">
+          <label>نوع فایل</label>
+          <select id="fpType">
+            <option value="">همه</option>
+            <option value="image">تصویر</option>
+            <option value="document">سند</option>
+            <option value="video">ویدیو</option>
+            <option value="audio">صوت</option>
+            <option value="archive">آرشیو</option>
+            <option value="other">سایر</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>مرتب‌سازی</label>
+          <select id="fpSort">
+            <option value="created_at_desc">جدیدترین</option>
+            <option value="created_at_asc">قدیمی‌ترین</option>
+            <option value="name_asc">نام (الف-ی)</option>
+            <option value="name_desc">نام (ی-الف)</option>
+            <option value="size_desc">بزرگ‌ترین</option>
+            <option value="size_asc">کوچک‌ترین</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>جستجو</label>
+          <input type="text" id="fpSearch" placeholder="نام فایل...">
+        </div>
+        <div class="filter-group">
+          <label>&nbsp;</label>
+          <button class="btn btn-secondary" id="fpApply">اعمال فیلتر</button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>انتخاب</th>
+              <th>نام</th>
+              <th>نوع</th>
+              <th>حجم</th>
+              <th>دسته‌بندی</th>
+              <th>تاریخ</th>
+            </tr>
+          </thead>
+          <tbody id="fpTableBody">
+            <tr class="loading"><td colspan="6"><i class="fas fa-spinner fa-spin"></i> در حال بارگذاری...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination" id="fpPagination" style="margin-top:12px;"></div>
+
+      <div class="form-actions" style="margin-top:16px;">
+        <button class="btn btn-outline" data-fp-close>انصراف</button>
+        <button class="btn btn-primary" id="fpConfirm">انتخاب</button>
+      </div>
+    </div>
+  </div>
+  <style>
+    #filePickerModal .selected-row { background: rgba(59,130,246,0.1); }
+  </style>
+</div>
+
+
