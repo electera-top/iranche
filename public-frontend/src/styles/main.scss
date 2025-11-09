@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Abstracts
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+@import 'abstracts/functions';
+@import 'abstracts/animations';
+@import 'abstracts/themes';
+
+// Base
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/utilities';
+
+// Components
+@import 'components/buttons';
+@import 'components/inputs';
+@import 'components/gallery';
+
+// اعمال تم پیش‌فرض به :root برای دسترسی به متغیرها
+:root {
+  // اضافه کردن کلاس‌های تم پیش‌فرض
+  @extend .theme-default;
+  
+  --navy-950: #0a192f;
+  --navy-900: #0f2744;
+  --navy-800: #1a365d;
+}
+
+// Typography
+@mixin font-face($name, $path, $weight) {
+  @font-face {
+    font-family: $name;
+    src: url($path) format('woff2');
+    font-weight: $weight;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
+// Font faces
+@include font-face('IRANYekan', '/fonts/IRANYekanThin.woff2', 100);
+@include font-face('IRANYekan', '/fonts/IRANYekanLight.woff2', 300);
+@include font-face('IRANYekan', '/fonts/IRANYekanRegular.woff2', 400);
+@include font-face('IRANYekan', '/fonts/IRANYekanMedium.woff2', 500);
+@include font-face('IRANYekan', '/fonts/IRANYekanBold.woff2', 700);
+@include font-face('IRANYekan', '/fonts/IRANYekanExtraBold.woff2', 800);
+
+// Kaman Font
+@include font-face('Kaman', '/fonts/Kaman/Mj_Kaman.woff2', 400);
+
+// Base styles
+@layer base {
+  * {
+    font-family: IRANYekan, Kaman, system-ui, sans-serif;
+  }
+  
+  body {
+    @apply antialiased;
+  }
+}
+
+// Add text stroke utility class
+.text-stroke-white {
+  text-shadow: 
+    -2px -2px 0 white,
+    2px -2px 0 white,
+    -2px 2px 0 white,
+    2px 2px 0 white,
+    0 -3px 0 white,
+    0 3px 0 white,
+    -3px 0 0 white,
+    3px 0 0 white;
+}
+
+.text-stroke-black {
+  text-shadow: 
+    -2px -2px 0 black,
+    2px -2px 0 black,
+    -2px 2px 0 black,
+    2px 2px 0 black,
+    0 -3px 0 black,
+    0 3px 0 black,
+    -3px 0 0 black,
+    3px 0 0 black;
+}
+
+// استروک خلاقانه و برجسته برای متن ایرانچه
+.text-stroke-creative-white {
+  text-shadow: 
+    -2px -2px 0 white,
+    2px -2px 0 white,
+    -2px 2px 0 white,
+    2px 2px 0 white,
+    0 -3px 0 white,
+    0 3px 0 white,
+    -3px 0 0 white,
+    3px 0 0 white,
+    0 0 10px rgba(255, 255, 255, 0.7),  // افکت درخشش نرم
+    0 0 20px rgba(255, 255, 255, 0.5),  // هاله خارجی
+    3px 3px 5px rgba(0, 0, 0, 0.2);     // سایه برای عمق بیشتر
+}
+
+.text-stroke-creative-black {
+ 
+  text-shadow: 
+    -3px -3px 0 black,
+    3px -3px 0 black,
+    -3px 3px 0 black,
+    3px 3px 0 black,
+    0 -4px 0 black,
+    0 4px 0 black,
+    -4px 0 0 black,
+    4px 0 0 black,
+    0 0 8px rgba(0, 0, 0, 0.8),       // افکت درخشش سیاه
+    0 0 15px rgba(0, 0, 0, 0.6),      // هاله خارجی تیره
+    4px 4px 6px rgba(0, 0, 0, 0.4);   // سایه برای عمق بیشتر
+}
+
+.animate-text{
+  animation: over-1 infinite 1.5s;
+  animation-direction: alternate;
+}
+.animate-text-2{
+  animation: over-2 infinite 1.5s;
+  animation-direction: alternate;
+}
+
+@keyframes over-1 {
+  0%{
+    scale: .8
+  }
+  100%{
+    scale: 1
+  }
+}
+@keyframes over-2 {
+  0%{
+    scale: 1
+  }
+  100%{
+    scale: .8
+  }
+}

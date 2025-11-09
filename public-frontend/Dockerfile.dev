@@ -1,0 +1,39 @@
+# Dockerfile for Development Mode (hot-reload enabled)
+FROM node:20-alpine
+
+# Install curl for healthcheck
+RUN apk add --no-cache curl
+
+WORKDIR /app
+
+# Copy package files first for better caching
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --legacy-peer-deps
+
+# Create non-root user first
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Create .next directory with proper permissions
+RUN mkdir -p /app/.next && chown -R nextjs:nodejs /app/.next
+
+# Copy source code
+COPY --chown=nextjs:nodejs . .
+
+# Switch to non-root user
+USER nextjs
+
+EXPOSE 3000
+
+ENV PORT=3000
+ENV NODE_ENV=development
+ENV HOSTNAME="0.0.0.0"
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000 || exit 1
+
+# Start development server
+CMD ["npm", "run", "dev"]
